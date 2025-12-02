@@ -1,314 +1,504 @@
-/**
- * Programa que hace uso de la clase ADMINISTRADOR, heredada de la clase USUARIO, para 
- * realizar diversas acciones sobre todas las tareas y usuarios del sistema.
- * @author Gael Dúran
- * @author Ana Gutiérrez
- * @version 1.0, 23/05/2025
- * @see ADMINISTRADOR
- */
+package proyecto1; // elimina o ajusta si no usas paquete
+
+import javax.swing.*;
+import java.awt.*;
 import java.time.LocalDate;
-import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 
-public class ADMINISTRADOR extends USUARIO{
+/**
+ * Clase ADMINISTRADOR
+ *
+ * <p>
+ * Implementa la lógica administrativa sobre usuarios y tareas y además
+ * provee una interfaz gráfica mínima (ventana con botones) para visualizar
+ * y ejecutar las operaciones principales (listar tareas, filtrar, crear,
+ * actualizar y eliminar).
+ * </p>
+ *
+public class ADMINISTRADOR extends USUARIO {
 
-     public ADMINISTRADOR(String ID, String nombreUsuario, String nickname, String correo, String contrasena, String tipoUsuario) {
-        super(ID, nombreUsuario, nickname, correo, contrasena, tipoUsuario);
-    } 
+    /* =========================
+       CONSTANTES Y ESTADO GLOBAL (NOMBRES EN ESPAÑOL)
+       ========================= */
 
-    public static final int CANTIDAD = 1000;
-    public static USUARIO[] usuarios = new USUARIO[CANTIDAD];
-    public static int cantidadUsuarios;
+    /** Máximo de usuarios permitidos en el arreglo interno. */
+    public static final int MAX_USUARIOS = 1000;
+
+    /** Arreglo que contiene los usuarios del sistema. */
+    public static USUARIO[] listaUsuarios = new USUARIO[MAX_USUARIOS];
+
+    /** Número actual de usuarios registrados en {@link #listaUsuarios}. */
+    public static int contadorUsuarios;
+
+    /** Máximo de tareas permitidas en el arreglo interno. */
+    public static final int MAX_TAREAS = 1_000_000;
+
+    /** Arreglo que contiene las tareas del sistema. */
+    public static TAREAS[] listaTareas = new TAREAS[MAX_TAREAS];
+
+    /**
+     * Número actual de tareas registradas en {@link #listaTareas}.
+     * Se parte con 1 para mantener compatibilidad con la inicialización original.
+     */
+    public static int contadorTareas = 1;
+
+    /* ======
+       BLOQUE DE INICIALIZACIÓN ESTÁTICO
+       ====== */
 
     static {
-        usuarios[0] = new ADMINISTRADOR("10", "Araceli", "Mercado", "araceli@gmail.com", "1234", "Administrador");
-        usuarios[1] = new DESARROLLADOR("11", "Diego", "Alberto", "diego@gmail.com", "5678", "Desarrollador");
-        usuarios[2] = new INVITADO("12", "Diana", "Rojas", "diana@gmail.com", "9876", "Invitado");
-        cantidadUsuarios = 3;
+        // Usuarios de ejemplo
+        listaUsuarios[0] = new ADMINISTRADOR("10", "Araceli", "Mercado", "araceli@gmail.com", "1234", "Administrador");
+        listaUsuarios[1] = new DESARROLLADOR("11", "Laura", "Blancas", "laura@gmail.com", "2102", "Desarrollador");
+        listaUsuarios[2] = new INVITADO("12", "Mariana", "Mejia", "mariana@gmail.com", "5615", "Invitado");
+        contadorUsuarios = 3;
+
+        // Tarea de ejemplo (se asume constructor de TAREAS como en tu versión original)
+        LocalDate fechaEstimadaIn1 = LocalDate.parse("2025-05-12");
+        LocalDate fechaIn1 = LocalDate.parse("2025-05-13");
+        LocalDate fechaEstimadaFin1 = LocalDate.parse("2025-05-25");
+        LocalDate fechaFin1 = LocalDate.parse("2025-05-23");
+        listaTareas[0] = new TAREAS("12", "completada", listaUsuarios[2], "La tarea de progra es sobre usuarios",
+                fechaEstimadaIn1, fechaIn1, fechaEstimadaFin1, fechaFin1);
     }
 
+    /* ======================
+       CONSTRUCTOR
+       ====================== */
+
     /**
-     * Se agrega el nuevo usuario que el administrador, ya existente, desea agregar al arreglo de los usuarios.
-    * @param u es el usuario que será agregado por el usuario administrador.
-    */
-    public static void agregarUsuario(USUARIO u){
-            for (int i = 0; i < CANTIDAD; i++) {
-            //SI EL NICKNAME O CORREO Y CONTRASEÑA SON IGUALES AL DE UN USUARIO EXISTENTE (AUNQUE EL ID SEA DIFERENTE) MANDA MENSAJE SOBRE LA CREACION ANTERIOR DEL USUARIO
-            if (usuarios[i]!= null &&u.equals(usuarios[i])) {
+     * Constructor del administrador (delegado a {@code USUARIO}).
+     *
+     * @param ID            identificador del usuario
+     * @param nombreUsuario nombre 
+     * @param nickname      apellido
+     * @param correo        correo electrónico
+     * @param contrasena    contraseña
+     * @param tipoUsuario   tipo de usuario (p. ej. Administrador)
+     */
+    public ADMINISTRADOR(String ID, String nombreUsuario, String nickname, String correo, String contrasena, String tipoUsuario) {
+        super(ID, nombreUsuario, nickname, correo, contrasena, tipoUsuario);
+    }
+
+    /* ===========================
+       MÉTODOS PÚBLICOS (LÓGICA) - NOMBRES EN ESPAÑOL
+       =========================== */
+
+    /**
+     * Agrega un nuevo usuario a {@link #listaUsuarios} si no existe duplicado.
+     *
+     * @param nuevoUsuario usuario a agregar
+     */
+    public static void agregarUsuario(USUARIO nuevoUsuario) {
+        for (int i = 0; i < MAX_USUARIOS; i++) {
+            if (listaUsuarios[i] != null && nuevoUsuario.equals(listaUsuarios[i])) {
                 JOptionPane.showMessageDialog(null, "EL USUARIO YA HA SIDO CREADO ANTERIORMENTE", "ERROR", JOptionPane.ERROR_MESSAGE);
                 return;
-                }
             }
-            //SI LA CANTIDAD DE USUARIOS ES MENOR A LA CANTIDAD MAXIMA DE USUARIOS
-            if(cantidadUsuarios<CANTIDAD){
-                    usuarios[cantidadUsuarios]= u;
-                    cantidadUsuarios=cantidadUsuarios+1;
-                    JOptionPane.showMessageDialog(null, "Se ha creado correctamente el usuario\n");
-            }else {
-            // SI LA CANTIDAD MAXIMA DE USUARIOS FUE SUPERADA
-                JOptionPane.showMessageDialog(null, "NO ES POSIBLE AGREGAR OTRO USUARIO");
-            }
-        
-    }
-
-    public static  int cantidad= 1000000;
-    public static TAREAS [] tareas= new TAREAS[cantidad];
-    public static int cantidadTareas = 1;
-    static{
-          LocalDate fechaEstimadaIn1=LocalDate.parse("2025-05-12");
-    LocalDate fechaIn1=LocalDate.parse("2025-05-13");
-    LocalDate fechaEstimadaFin1=LocalDate.parse("2025-05-25");
-    LocalDate fechaFin1=LocalDate.parse("2025-05-23");
-    tareas[0]=new TAREAS("12","completada", usuarios[2], "La tarea de progra es sobre usuarios", fechaEstimadaIn1,fechaIn1 , fechaEstimadaFin1,fechaFin1);
+        }
+        if (contadorUsuarios < MAX_USUARIOS) {
+            listaUsuarios[contadorUsuarios] = nuevoUsuario;
+            contadorUsuarios++;
+            JOptionPane.showMessageDialog(null, "Se ha creado correctamente el usuario\n");
+        } else {
+            JOptionPane.showMessageDialog(null, "NO ES POSIBLE AGREGAR OTRO USUARIO");
+        }
     }
 
     /**
-     * Se crea la tarea indicada por el administrador al arreglo de todas las tareas.
-     * @param t1 Es la tarea que se creará por el administrador.
+     * Crea una nueva tarea y la añade a {@link #listaTareas} si no existe duplicada.
+     *
+     * @param nuevaTarea tarea a crear
      */
-    public static void crearTareasAdmin(TAREAS t1){
-                //SI LA DESCRIPCION Y EL USUARIO ES EL MISMO MANDA MENSAJE SOBRE LA CREACION ANTERIOR DE LA TAREA
-                for (int i = 0; i < cantidad; i++) {
-                    if (tareas[i]!=null && t1.equals(tareas[i])) {
-                    JOptionPane.showMessageDialog(null, "LA TAREA YA HA SIDO CREADO ANTERIORMENTE", "ERROR", JOptionPane.ERROR_MESSAGE);
+    public static void crearTareaAdmin(TAREAS nuevaTarea) {
+        for (int i = 0; i < MAX_TAREAS; i++) {
+            if (listaTareas[i] != null && nuevaTarea.equals(listaTareas[i])) {
+                JOptionPane.showMessageDialog(null, "LA TAREA YA HA SIDO CREADA ANTERIORMENTE", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        }
+        if (contadorTareas < MAX_TAREAS) {
+            listaTareas[contadorTareas] = nuevaTarea;
+            JOptionPane.showMessageDialog(null, "Se ha creado correctamente la tarea\n");
+            contadorTareas++;
+        } else {
+            JOptionPane.showMessageDialog(null, "NO ES POSIBLE AGREGAR OTRA TAREA", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    /**
+     * Muestra todas las tareas en un JTextArea dentro de un JOptionPane.
+     * Si no hay tareas, muestra un mensaje informativo.
+     */
+    public static void desplegarTareasAdmin() {
+        if (contadorTareas == 0) {
+            JOptionPane.showMessageDialog(null, "Todavía no existen tareas");
+            return;
+        }
+        JTextArea area = new JTextArea("LISTA DE TAREAS:\n", 15, 50);
+        for (int i = 0; i < contadorTareas; i++) {
+            area.append("TAREA " + (i + 1) + ":\n" + listaTareas[i] + "\n");
+        }
+        area.setEditable(false);
+        JScrollPane scroll = new JScrollPane(area);
+        JOptionPane.showMessageDialog(null, scroll, "INFORMACIÓN", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    /**
+     * Filtra las tareas por estado (pendiente / enCurso / completada) y las muestra.
+     * La selección se hace mediante un input (A/B/C).
+     */
+    public static void filtrarTareasPorEstado() {
+        if (contadorTareas == 0) {
+            JOptionPane.showMessageDialog(null, "Todavía no existen tareas");
+            return;
+        }
+        String opcion = solicitarEntrada("Elige el estado (A/B/C):\nA) PENDIENTES\nB) EN CURSO\nC) COMPLETADO\n");
+        if (opcion == null) return;
+        JTextArea area = new JTextArea("LISTA DE TAREAS\n\n", 15, 50);
+        boolean encontrado = false;
+        switch (opcion.toUpperCase()) {
+            case "A":
+                area.append("PENDIENTES\n");
+                for (int i = 0; i < MAX_TAREAS; i++) {
+                    if (listaTareas[i] != null && "pendiente".equalsIgnoreCase(listaTareas[i].estado)) {
+                        area.append("TAREA:\n" + listaTareas[i] + "\n");
+                        encontrado = true;
+                    }
+                }
+                if (!encontrado) area.append("No existen tareas pendientes");
+                break;
+            case "B":
+                area.append("EN CURSO\n");
+                for (int i = 0; i < MAX_TAREAS; i++) {
+                    if (listaTareas[i] != null && ("enCurso".equalsIgnoreCase(listaTareas[i].estado) || "encurso".equalsIgnoreCase(listaTareas[i].estado))) {
+                        area.append("TAREA:\n" + listaTareas[i] + "\n");
+                        encontrado = true;
+                    }
+                }
+                if (!encontrado) area.append("No existen tareas en curso");
+                break;
+            case "C":
+                area.append("COMPLETADAS\n");
+                for (int i = 0; i < MAX_TAREAS; i++) {
+                    if (listaTareas[i] != null && "completada".equalsIgnoreCase(listaTareas[i].estado)) {
+                        area.append("TAREA:\n" + listaTareas[i] + "\n");
+                        encontrado = true;
+                    }
+                }
+                if (!encontrado) area.append("No existen tareas completadas");
+                break;
+            default:
+                area.append("Opción inválida");
+        }
+        area.setEditable(false);
+        JScrollPane scroll = new JScrollPane(area);
+        JOptionPane.showMessageDialog(null, scroll, "INFORMACIÓN", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    /**
+     * Muestra las tareas pertenecientes a un usuario indicado.
+     *
+     * @param usuario usuario para el cual se filtran las tareas
+     */
+    public static void filtrarTareasPorUsuario(USUARIO usuario) {
+        if (contadorTareas == 0) {
+            JOptionPane.showMessageDialog(null, "Todavía no existen tareas");
+            return;
+        }
+        JTextArea area = new JTextArea("LISTA DE TAREAS PARA " + usuario.nickname + "\n", 15, 50);
+        boolean tareaUsuario = false;
+        for (int i = 0; i < listaTareas.length; i++) {
+            if (listaTareas[i] != null && listaTareas[i].usuario.equals(usuario)) {
+                area.append("TAREA:\n" + listaTareas[i] + "\n");
+                tareaUsuario = true;
+            }
+        }
+        if (!tareaUsuario) area.append("Todavía no existen tareas para " + usuario.nickname);
+        area.setEditable(false);
+        JScrollPane scroll = new JScrollPane(area);
+        JOptionPane.showMessageDialog(null, scroll, "INFORMACIÓN", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    /**
+     * Actualiza una tarea por su ID; permite cambiar estado, usuario asignado,
+     * descripción y (si aplica) fechas estimadas.
+     *
+     * @param idTarea identificador de la tarea a actualizar
+     */
+    public static void actualizarTareaPorId(String idTarea) {
+        if (contadorTareas == 0) {
+            JOptionPane.showMessageDialog(null, "Todavía no existen tareas");
+            return;
+        }
+        boolean existe = false;
+        for (int i = 0; i < listaTareas.length; i++) {
+            if (listaTareas[i] != null && listaTareas[i].id.equals(idTarea)) {
+                existe = true;
+
+                // Modificar estado
+                String modificarEstado = solicitarEntrada("¿Quieres modificar el estado de la tarea? (S/N)");
+                if ("S".equalsIgnoreCase(modificarEstado)) {
+                    if ("completada".equalsIgnoreCase(listaTareas[i].estado)) {
+                        JOptionPane.showMessageDialog(null, "La tarea ya ha sido completada, no es posible realizar la modificación");
+                    } else {
+                        String anterior = listaTareas[i].estado;
+                        if ("pendiente".equalsIgnoreCase(listaTareas[i].estado)) {
+                            listaTareas[i].fechaInicio = LocalDate.now();
+                            listaTareas[i].setEstado("enCurso");
+                        } else if ("enCurso".equalsIgnoreCase(listaTareas[i].estado) || "encurso".equalsIgnoreCase(listaTareas[i].estado)) {
+                            listaTareas[i].fechaFin = LocalDate.now();
+                            listaTareas[i].setEstado("completada");
+                        }
+                        JOptionPane.showMessageDialog(null, "Se realizó la siguiente modificación al estado de la tarea:\n" + anterior + " --> " + listaTareas[i].estado);
+                    }
+                }
+
+                // Modificar usuario asignado
+                String modificarUsuario = solicitarEntrada("¿Quieres modificar el usuario al que pertenece la tarea? (S/N)");
+                if ("S".equalsIgnoreCase(modificarUsuario)) {
+                    String nuevoIdUsuario = solicitarEntrada("Ingresa el ID del nuevo usuario al que le pertenecerá la tarea");
+                    if (nuevoIdUsuario != null) {
+                        boolean usuarioEncontrado = false;
+                        for (int j = 0; j < MAX_USUARIOS; j++) {
+                            if (listaUsuarios[j] != null && nuevoIdUsuario.equals(listaUsuarios[j].ID)) {
+                                usuarioEncontrado = true;
+                                listaTareas[i].usuario = listaUsuarios[j];
+                                JOptionPane.showMessageDialog(null, "Se realizó la modificación al usuario de la tarea:\nEl nuevo usuario es: " + listaTareas[i].usuario.nickname);
+                                break;
+                            }
+                        }
+                        if (!usuarioEncontrado) {
+                            JOptionPane.showMessageDialog(null, "UPS... EL ID INGRESADO NO CORRESPONDE A ALGÚN USUARIO EXISTENTE", "ERROR", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                }
+
+                // Modificar descripción
+                String modificarDescripcion = solicitarEntrada("¿Quieres modificar la descripción de la tarea? (S/N)");
+                if ("S".equalsIgnoreCase(modificarDescripcion)) {
+                    String nuevaDescripcion = solicitarEntrada("Ingresa la nueva descripción de la tarea");
+                    if (nuevaDescripcion != null) {
+                        listaTareas[i].descripcion = nuevaDescripcion;
+                        JOptionPane.showMessageDialog(null, "Se realizó la modificación a la descripción de la tarea.");
+                    }
+                }
+
+                // Modificar fechas (solo si sigue siendo pendiente)
+                if ("pendiente".equalsIgnoreCase(listaTareas[i].estado)) {
+                    String modificarEstIn = solicitarEntrada("¿Quieres modificar la fecha estimada de inicio? (S/N)");
+                    if ("S".equalsIgnoreCase(modificarEstIn)) {
+                        String fechaEI = solicitarEntrada("Nueva fecha estimada de inicio (aaaa-mm-dd):");
+                        if (fechaEI != null && !fechaEI.trim().isEmpty()) {
+                            listaTareas[i].fechaEstimadaInicio = LocalDate.parse(fechaEI);
+                            JOptionPane.showMessageDialog(null, "La nueva fecha de inicio de la tarea es: " + listaTareas[i].fechaEstimadaInicio);
+                        }
+                    }
+                    String modificarEstFin = solicitarEntrada("¿Quieres modificar la fecha estimada de fin? (S/N)");
+                    if ("S".equalsIgnoreCase(modificarEstFin)) {
+                        String fechaEF = solicitarEntrada("Nueva fecha estimada de fin (aaaa-mm-dd):");
+                        if (fechaEF != null && !fechaEF.trim().isEmpty()) {
+                            listaTareas[i].fechaEstimadaFin = LocalDate.parse(fechaEF);
+                            JOptionPane.showMessageDialog(null, "La nueva fecha de fin de la tarea es: " + listaTareas[i].fechaEstimadaFin);
+                        }
+                    }
+                }
+
+                break;
+            }
+        }
+        if (!existe) {
+            JOptionPane.showMessageDialog(null, "LA TAREA INGRESADA NO EXISTE", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    /**
+     * Elimina una tarea por su identificador.
+     *
+     * @param idTarea identificador de la tarea a eliminar
+     */
+    public static void eliminarTareaPorId(String idTarea) {
+        if (contadorTareas == 0) {
+            JOptionPane.showMessageDialog(null, "Todavía no existen tareas");
+            return;
+        }
+        boolean encontrada = false;
+        for (int j = 0; j < MAX_TAREAS; j++) {
+            if (listaTareas[j] != null && idTarea.equals(listaTareas[j].id)) {
+                encontrada = true;
+                for (int i = j; i < MAX_TAREAS - 1; i++) {
+                    listaTareas[i] = listaTareas[i + 1];
+                }
+                listaTareas[MAX_TAREAS - 1] = null;
+                contadorTareas--;
+                JOptionPane.showMessageDialog(null, "La tarea se ha eliminado satisfactoriamente");
+                break;
+            }
+        }
+        if (!encontrada) {
+            JOptionPane.showMessageDialog(null, "LA TAREA INGRESADA NO EXISTE", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    /**
+     * Función auxiliar que pide una cadena al usuario con {@link JOptionPane#showInputDialog}.
+     *
+     * @param mensaje texto a mostrar en la entrada
+     * @return cadena ingresada por el usuario, o {@code null} si canceló
+     */
+    public static String solicitarEntrada(String mensaje) {
+        return JOptionPane.showInputDialog(mensaje);
+    }
+
+    /* ===========================
+       INTERFAZ GRÁFICA (VENTANA) - NOMBRES EN ESPAÑOL
+       =========================== */
+
+    /**
+     * Lanza una ventana Swing con botones que permiten invocar
+     * las operaciones administrativas principales para visualizar la interfaz.
+     *
+     * Esta ventana NO reemplaza la lógica interna: únicamente ofrece
+     * botones que invocan los métodos (los diálogos concretos se siguen mostrando con {@link JOptionPane}).
+     */
+    public static void lanzarInterfazAdmin() {
+        EventQueue.invokeLater(() -> {
+            JFrame ventana = new JFrame("Panel Administrativo - Visualización");
+            ventana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            ventana.setSize(700, 420);
+            ventana.setLocationRelativeTo(null);
+
+            JPanel panelBotones = new JPanel(new GridBagLayout());
+            GridBagConstraints gbc = new GridBagConstraints();
+            gbc.insets = new Insets(8, 8, 8, 8);
+            gbc.fill = GridBagConstraints.HORIZONTAL;
+            gbc.gridx = 0;
+            gbc.gridy = 0;
+            gbc.weightx = 1.0;
+
+            JButton btnMostrarTodas = new JButton("Desplegar todas las tareas");
+            btnMostrarTodas.addActionListener(e -> desplegarTareasAdmin());
+            panelBotones.add(btnMostrarTodas, gbc);
+
+            gbc.gridy++;
+            JButton btnFiltrarEstado = new JButton("Filtrar tareas por estado");
+            btnFiltrarEstado.addActionListener(e -> filtrarTareasPorEstado());
+            panelBotones.add(btnFiltrarEstado, gbc);
+
+            gbc.gridy++;
+            JButton btnFiltrarUsuario = new JButton("Filtrar tareas por usuario (ID)");
+            btnFiltrarUsuario.addActionListener(e -> {
+                String id = solicitarEntrada("Ingresa el ID del usuario:");
+                if (id == null || id.trim().isEmpty()) return;
+                USUARIO u = null;
+                for (int i = 0; i < MAX_USUARIOS; i++) {
+                    if (listaUsuarios[i] != null && listaUsuarios[i].ID.equals(id.trim())) {
+                        u = listaUsuarios[i];
+                        break;
+                    }
+                }
+                if (u != null) filtrarTareasPorUsuario(u);
+                else JOptionPane.showMessageDialog(ventana, "Usuario no encontrado.", "ERROR", JOptionPane.ERROR_MESSAGE);
+            });
+            panelBotones.add(btnFiltrarUsuario, gbc);
+
+            gbc.gridy++;
+            JButton btnCrearUsuario = new JButton("Crear usuario (simulado)");
+            btnCrearUsuario.addActionListener(e -> {
+                String id = solicitarEntrada("ID:");
+                if (id == null || id.trim().isEmpty()) return;
+                String nombre = solicitarEntrada("Nombre del usuario:");
+                if (nombre == null) return;
+                String nick = solicitarEntrada("Nickname:");
+                if (nick == null) return;
+                String correo = solicitarEntrada("Correo:");
+                if (correo == null) return;
+                String pass = solicitarEntrada("Contraseña:");
+                if (pass == null) return;
+                String tipo = solicitarEntrada("Tipo de usuario (Administrador/Desarrollador/Invitado):");
+                if (tipo == null) return;
+
+                USUARIO nuevo = new ADMINISTRADOR(id.trim(), nombre.trim(), nick.trim(), correo.trim(), pass.trim(), tipo.trim());
+                agregarUsuario(nuevo);
+            });
+            panelBotones.add(btnCrearUsuario, gbc);
+
+            gbc.gridy++;
+            JButton btnCrearTarea = new JButton("Crear tarea (simulada)");
+            btnCrearTarea.addActionListener(e -> {
+                String id = solicitarEntrada("ID tarea:");
+                if (id == null || id.trim().isEmpty()) return;
+                String estado = solicitarEntrada("Estado (pendiente/enCurso/completada):");
+                if (estado == null) return;
+                String idUsuario = solicitarEntrada("ID del usuario asignado:");
+                if (idUsuario == null) return;
+                USUARIO usuarioAsignado = null;
+                for (int i = 0; i < MAX_USUARIOS; i++) {
+                    if (listaUsuarios[i] != null && listaUsuarios[i].ID.equals(idUsuario.trim())) {
+                        usuarioAsignado = listaUsuarios[i];
+                        break;
+                    }
+                }
+                if (usuarioAsignado == null) {
+                    JOptionPane.showMessageDialog(ventana, "Usuario no encontrado.", "ERROR", JOptionPane.ERROR_MESSAGE);
                     return;
-                    }
                 }
-                //SI LA CANTIDAD DE TAREAS ACTUALES ES MENOR A LA CANTIDAD PERMITIDA DE TAREAS
-                if(cantidadTareas<cantidad){
-                    tareas[cantidadTareas]= t1;
-                    JOptionPane.showMessageDialog(null, "Se ha creado correctamente la tarea\n");
-                    cantidadTareas=cantidadTareas+1;
-                }else {
-                //SI SUPERA LA CANTIDAD MAXIMA DE TAREAS
-                    JOptionPane.showMessageDialog(null, "NO ES POSIBLE AGREGAR OTRA TAREA", "ERROR", JOptionPane.ERROR_MESSAGE);
-                }
-            }
+                String desc = solicitarEntrada("Descripción:");
+                if (desc == null) return;
+                String fechaEstIn = solicitarEntrada("Fecha estimada inicio (aaaa-mm-dd) - opcional:");
+                LocalDate fechaEI = (fechaEstIn == null || fechaEstIn.trim().isEmpty()) ? null : LocalDate.parse(fechaEstIn.trim());
+
+                TAREAS nueva = new TAREAS(id.trim(), estado.trim(), usuarioAsignado, desc.trim(),
+                        fechaEI, null, null, null);
+                crearTareaAdmin(nueva);
+            });
+            panelBotones.add(btnCrearTarea, gbc);
+
+            gbc.gridy++;
+            JButton btnActualizarTarea = new JButton("Actualizar tarea (por ID)");
+            btnActualizarTarea.addActionListener(e -> {
+                String id = solicitarEntrada("Ingresa el ID de la tarea a actualizar:");
+                if (id == null || id.trim().isEmpty()) return;
+                actualizarTareaPorId(id.trim());
+            });
+            panelBotones.add(btnActualizarTarea, gbc);
+
+            gbc.gridy++;
+            JButton btnEliminarTarea = new JButton("Eliminar tarea (por ID)");
+            btnEliminarTarea.addActionListener(e -> {
+                String id = solicitarEntrada("Ingresa el ID de la tarea a eliminar:");
+                if (id == null || id.trim().isEmpty()) return;
+                eliminarTareaPorId(id.trim());
+            });
+            panelBotones.add(btnEliminarTarea, gbc);
+
+            // Pie informativo
+            JPanel pie = new JPanel(new BorderLayout());
+            JLabel info = new JLabel("<html><center>Interfaz en español — los botones llaman a los diálogos existentes.<br>Variables y métodos renombrados y todo documentado.</center></html>", SwingConstants.CENTER);
+            pie.add(info, BorderLayout.CENTER);
+
+            ventana.getContentPane().add(panelBotones, BorderLayout.CENTER);
+            ventana.getContentPane().add(pie, BorderLayout.SOUTH);
+
+            ventana.setVisible(true);
+        });
+    }
+
+    /* ===========================
+       MÉTODO main DE PRUEBA (OPCIONAL)
+       =========================== */
 
     /**
-     * El administrador podrá desplegar todas las tareas existentes y si es el caso de no haber ninguna, se mostrará un mensaje.
+     * Método main de prueba para lanzar la interfaz gráfica del administrador.
+     * Puedes comentar o eliminar este método si no deseas que esta clase tenga
+     * un punto de entrada propio.
+     *
+     * @param args argumentos de línea de comando (no usados)
      */
-    public static void desplegarTareasAdmin(){
-        if (cantidadTareas==0) {
-            JOptionPane.showMessageDialog(null, "Todavia no existen tareas");
-        }else{
-            JTextArea area = new JTextArea("LISTA DE TAREAS:\n", 10, 40);
-            for (int i = 0; i <cantidadTareas; i++) {
-                     area.append("TAREA "+(i+1)+":\n"+tareas[i]+"\n");
-            }
-            JScrollPane scroll = new JScrollPane(area);
-            JOptionPane.showMessageDialog(null, scroll, "INFORMACION", JOptionPane.INFORMATION_MESSAGE);
-        }
+    public static void main(String[] args) {
+        lanzarInterfazAdmin();
     }
-    
-    /**
-     * El administrador podrá desplegar todas las tareas existentes según sea su estado, y si es el caso de no haber ninguna se mostrará un mensaje.
-     */
-    public static void filtrarTareasEstadoAdmin() {
-        boolean existenciaP=false;
-        boolean existenciaEnCurso=false;
-        boolean existenciaC=false;
-        //SI NO EXISTEN TAREAS AUN LA CANTIDAD DE TAREAS SE MANTIENE EN CERO
-         if (cantidadTareas==0) {
-            JOptionPane.showMessageDialog(null, "Todavia no existen tareas");
-        }else{
-        //SI EXISTEN TAREAS PREGUNTA EL ESTADO A FILTRAR
-        String estadoF = solicitaElementos("Elige el estado(A/B/C): A)PENDIENTES\n B)EN CURSO\n C)COMPLETADO\n");
-             JTextArea area = new JTextArea("LISTA DE TAREAS ", 10, 40);
-            switch (estadoF) {
-                case "A":
-                    area.append("PENDIENTES\n");
-                    for (int i = 0; i <cantidad; i++) {
-                        if (tareas[i]!=null && tareas[i].estado.equals("pendiente")) {
-                        area.append("TAREA:\n"+tareas[i]+"\n");
-                        existenciaP= true;
-                        }
-                    }
-                    if (existenciaP==false) {
-                        area.append("No existen tareas pendientes");
-                    }
-                    break;
-                case "B":
-                    area.append("EN CURSO:\n");
-                    for (int i = 0; i <cantidad; i++) {
-                        if (tareas[i]!=null && tareas[i].estado.equals("enCurso")) {
-                        area.append("TAREA\n"+tareas[i]+"\n");
-                        existenciaEnCurso=true;
-                         }
-                    }
-                    if (existenciaEnCurso==false) {
-                        area.append("No existen tareas en curso");
-                    }
-                    break;
-                case "C":
-                        area.append("COMPLETADA\n");
-                        for (int i = 0; i <cantidad; i++) {
-                            if (tareas[i]!=null &&tareas[i].estado.equals("completada")) {
-                            area.append("TAREA:\n"+tareas[i]+"\n");
-                            existenciaC=true;
-                            }
-                        }
-                        if (existenciaC==false) {
-                            area.append("No existen tareas completadas");
-                         }
-                default:
-                    break;
-            }
-            JScrollPane scroll = new JScrollPane(area);
-            JOptionPane.showMessageDialog(null, scroll, "INFORMACION", JOptionPane.INFORMATION_MESSAGE);
-        }
-
-    }
-
-    /**
-     * El administrador podrá desplegar todas las tareas existentes según  y si es el caso de no haber ninguna, se mostrará un mensaje.
-     * @param u Es el usuario al que pertenecen las tareas que se filtran.
-     */
-    public static void filtrarTareasUsuarioAdmin(USUARIO u) {
-        boolean tareaUsuario=false;
-         if (cantidadTareas==0) {
-             JOptionPane.showMessageDialog(null, "Todavia no existen tareas");
-        } else{
-            JTextArea area = new JTextArea("LISTA DE TAREAS PARA "+u.nickname+"\n", 10, 40);
-            for (int j = 0; j < tareas.length; j++) {
-                if (tareas[j]!=null && tareas[j].usuario.equals(u)) {
-                    area.append("TAREA:\n"+tareas[j]+"\n");
-                    tareaUsuario=true;
-                }         
-            }
-             if (tareaUsuario==false) {
-                 area.append("Todavia no existen tareas para "+u.nickname);
-            } 
-             JScrollPane scroll = new JScrollPane(area);
-            JOptionPane.showMessageDialog(null, scroll, "INFORMACION", JOptionPane.INFORMATION_MESSAGE);
-        }
-
-            
-    }
-
-    /**
-     * Se actualizan los datos de la tarea que el usuario decida actualizar, y que el estado de la tarea permita.
-     * @param t Es el id de la tarea que el administrador desea actualizar.
-     */
-    public static void actualizarTareasAdmin(String t) {
-        Boolean existeTarea=false;
-        String estadoAnterior = "";
-        String nuevousuario,nuevaDescrip;
-        if (cantidadTareas==0) {
-            JOptionPane.showMessageDialog(null, "Todavia no existen tareas");
-        }else{
-            for (int i = 0; i < cantidad;i++) {
-                if (tareas[i]!=null && tareas[i].id.equals(t)) {
-                    existeTarea=true;
-    
-                    String modificarEstado=solicitaElementos("Quieres modificar el estado de la tarea?(S/N)");
-                    if (modificarEstado.equals("S")) { 
-                        if ("completada".equals(tareas[i].estado)) {
-                             JOptionPane.showMessageDialog(null, "La tarea  ya ha sido completada, no es posible realizar la modificación\n"); 
-                        }else{ 
-                            if ("pendiente".equals(tareas[i].estado)) {
-                                estadoAnterior=tareas[i].estado;
-                                tareas[i].fechaInicio=LocalDate.now();
-                                tareas[i].setEstado("enCurso");
-                            }else if ("enCurso".equals(tareas[i].estado)) {
-                                estadoAnterior=tareas[i].estado;
-                                tareas[i].fechaFin=LocalDate.now();
-                                tareas[i].setEstado("completada");
-                            }
-                            JOptionPane.showMessageDialog(null, "Se realizó la siguiente modificación al estado de la tarea:\n"+ estadoAnterior +"-->"+ tareas[i].estado); 
-                        }
-                    }
-         
-                    String modificarUsuario=solicitaElementos("Quieres modificar el usuario al que pertenece la tarea?(S/N)\n");
-                        if (modificarUsuario.equals("S")) {
-                            boolean usuarioExiste=false;
-                            nuevousuario=solicitaElementos("Ingresa el ID del nuevo usuario al que le pertenecera la tarea");
-                            for (int j = 0; j < CANTIDAD; j++) {
-                                if (usuarios[j]!=null && nuevousuario.equals(usuarios[j].ID)) {
-                                    usuarioExiste=true;
-                                    if (usuarioExiste==false) {
-                                        JOptionPane.showMessageDialog(null, "UPS... EL ID INGRESADO NO CORRESPONDE A ALGÚN USUARIO EXISTENTE", "ERROR", JOptionPane.ERROR_MESSAGE);
-                                        break;
-                                    }
-                                    tareas[i].usuario=usuarios[j];
-                                     JOptionPane.showMessageDialog(null, "Se realizó la siguiente modificación al usuario de la tarea:\n"+"El nuevo usuario es: "+tareas[i].usuario.nickname); 
-                                    break;
-                                }
-                            }
-                        }
-
-                    String modificarDescrip=solicitaElementos("Quieres modificar la Descripción de la tarea?(S/N)");
-                        if (modificarDescrip.equals("S")) {
-                            nuevaDescrip=solicitaElementos("Ingresa la nueva descripción de la tarea");
-                            tareas[i].descripcion=nuevaDescrip;
-                             JOptionPane.showMessageDialog(null, "Se realizó la siguiente modificación a la descripción de la tarea:\n"+"El nuevo descripción: "+tareas[i].descripcion); 
-                        }
-
-                    if ("pendiente".equals(tareas[i].estado)) {
-                        String modificarFechaEsIn=solicitaElementos("Quieres modificar la fecha estimada de inicio ?(S/N)");
-                        if (modificarFechaEsIn.equals("S")) {
-                            String fechaEI=solicitaElementos("Nueva fecha estimada de inicio (aaaa-mm-dd):");
-                            tareas[i].fechaEstimadaInicio=LocalDate.parse(fechaEI);
-                            JOptionPane.showMessageDialog(null, "La nueva fecha de inicio de la tarea es:\n"+tareas[i].fechaEstimadaInicio); 
-                        }
-
-                        String modificarFechaEsFin=solicitaElementos("Quieres modificar la fecha estimada de fin ?(S/N)");
-                        if (modificarFechaEsFin.equals("S")) {
-                            String fechaEF=solicitaElementos("Nueva fecha estimada de fin (aaaa-mm-dd):");
-                            tareas[i].fechaEstimadaFin=LocalDate.parse(fechaEF);
-                            JOptionPane.showMessageDialog(null, "La nueva fecha de fin de la tarea es:\n"+tareas[i].fechaEstimadaFin); 
-                        }
-                    }
-
-                    break;
-                }
-            }
-            if (!existeTarea) {
-                 JOptionPane.showMessageDialog(null, "LA TAREA INGRESADA NO EXISTE", "ERROR", JOptionPane.ERROR_MESSAGE);
-            }
-        }
-    }
-       
-
-    /**
-     * Metodo que elimina una tarea del arreglo de tareas.
-     * @param x Es el id de la tarea que se eliminara.
-     */
-    public static void eliminarTareas(String x){
-        boolean encontrada=false;
-        if (cantidadTareas==0) {
-            JOptionPane.showMessageDialog(null, "Todavia no existen tareas");
-             return;
-        } else{
-                for (int j = 0; j <cantidad; j++) {
-                    if(tareas[j]!=null && x.equals(tareas[j].id)){
-                        encontrada=true;
-                        for (int i = j; i < cantidad-1; i++) {
-                             tareas[i]=tareas[i+1];
-                        }
-                        tareas[cantidad - 1] = null;
-                        cantidadTareas=cantidadTareas-1;
-                        JOptionPane.showMessageDialog(null, "La tarea se ha eliminado satisfactoriamente");
-
-                    }
-                }
-                 if (encontrada==false) {
-                         JOptionPane.showMessageDialog(null, "LA TAREA INGRESADA NO EXISTE", "ERROR", JOptionPane.ERROR_MESSAGE);
-                }
-        
-            }
-
-    }
-
-    public static String solicitaElementos(String mensaje ) {
-            String elementos = JOptionPane.showInputDialog(mensaje);
-            return elementos;
-    }
-
-
-
 }
+
 
 
 
