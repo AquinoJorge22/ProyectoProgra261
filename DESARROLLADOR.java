@@ -1,7 +1,7 @@
 /**
- * Programa que hace uso de la clase DESARROLLADOR, heredada de la clase USUARIO, para 
- * realizar diversas acciones sobre las tareas del sistema que le corresponden.
- * @author Gabriel Reyes
+ * Este programa de la clase DESARROLLADOR, heredada de la clase USUARIO, sirve para 
+ * realizar acciones como registrar tareas, sobre las tareas del sistema que le corresponden.
+ * @author Maritza Eugenio
  * @version 1.0, 02/12/2025
  * @see DESARROLLADOR
  */
@@ -18,24 +18,24 @@ public class DESARROLLADOR extends USUARIO {
     }
 
     /**
-     * Registra las tareas del desarrollador
-     * @param x tarea que se va a registrar
+     * Aqui se hara el registro de las tareas del desarrollador
+     * @param n tarea qdel cual se hara un registro
      */
-    public void enlistarTarea(TAREAS x) {
-        if(ADMINISTRADOR.cantidadTareas < ADMINISTRADOR.CANTIDAD) {
-            x.setUsuario(this);
-            ADMINISTRADOR.tareas[ADMINISTRADOR.cantidadTareas] = x;
-            ADMINISTRADOR.cantidadTareas++;
+    public void enlistarTarea(TAREAS n) {
+        if(ADMINISTRADOR.contadorTareas < ADMINISTRADOR.CANTIDAD) {
+            n.setUsuario(this);
+            ADMINISTRADOR.listaTareas[ADMINISTRADOR.contadorTareas] = n;
+            ADMINISTRADOR.contadorTareas++;
             JOptionPane.showMessageDialog(null, "Tarea creada exitosamente\n");
         } else {
-            JOptionPane.showMessageDialog(null, "LO SIENTO , NO SE PUEDEN AÑADIR TAREAS ");
+            JOptionPane.showMessageDialog(null, "Lo siento, no se ha podido llevar a cabo tu registro");
         }
     }
 
 
 
     /**
-     * Despliega las tareas asignadas a este desarrollador (en caso de haber)
+     * Enlista las tareas asignadas a este desarrollador (en caso de haber)
      */ 
     public void desplegarTareasDesa() {
         JTextArea area = new JTextArea(20,40);
@@ -43,8 +43,8 @@ public class DESARROLLADOR extends USUARIO {
 
         
 
-        for (int i = 0; i < ADMINISTRADOR.cantidadTareas; i++) {
-            TAREAS t = ADMINISTRADOR.tareas[i];
+        for (int i = 0; i < ADMINISTRADOR.contadorTareas; i++) {
+            TAREAS n = ADMINISTRADOR.listaTareas[i];
             if (t != null && t.getUsuario().getID().equals(this.getID())) {
                 area.append(t.toString() + "\n");
                 tienesTareas = true;
@@ -52,23 +52,23 @@ public class DESARROLLADOR extends USUARIO {
         }
 
         if (!tienesTareas) {
-            area.setText("NO TIENES TAREAS");
+            area.setText("No se encontraron tareas registradas");
         }
 
         JScrollPane scroll = new JScrollPane(area);
-        JOptionPane.showMessageDialog(null, scroll, "TUS TAREAS : ", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, scroll, "Tus tareas registradas son : ", JOptionPane.INFORMATION_MESSAGE);
     }
 
     /**
-     * El desarrollador puede filtrar sus tareas por estado: pendiente, en curso o completada
+     * El desarrollador nos ayuda a filtrar sus tareas por estado: pendiente, en curso o completada
      */
-    public void filtrarTareasEstadoDesa() {
-        boolean existenciaP = false;
+    public void filtrarTareasPorEstado() {
+        boolean existenciaPendiente = false;
         boolean existenciaEnCurso = false;
-        boolean existenciaC = false;
+        boolean existenciaCompletada = false;
     
-        if (ADMINISTRADOR.cantidadTareas == 0) {
-            JTextArea area = new JTextArea("NO EXISTEN TAREAS EN EL SISTEMA", 10, 40);
+        if (ADMINISTRADOR.contadorTareas == 0) {
+            JTextArea area = new JTextArea("No se encuntran tareas existentes", 10, 40);
             JScrollPane scroll = new JScrollPane(area);
             JOptionPane.showMessageDialog(null, scroll, "INFORMACION", JOptionPane.INFORMATION_MESSAGE);
         } else {
@@ -78,8 +78,8 @@ public class DESARROLLADOR extends USUARIO {
             switch (estadoF.toUpperCase()) {
                 case "A":
                     area.append("PENDIENTES:\n");
-                    for (int i = 0; i < ADMINISTRADOR.cantidadTareas; i++) {
-                        TAREAS t = ADMINISTRADOR.tareas[i];
+                    for (int i = 0; i < ADMINISTRADOR.contadorTareas; i++) {
+                        TAREAS t = ADMINISTRADOR.listaTareas[i];
                         if (t != null && t.getUsuario() != null &&
                             t.getUsuario().getID().equals(this.getID()) &&
                             t.getEstado().equalsIgnoreCase("pendiente")) {
@@ -95,8 +95,8 @@ public class DESARROLLADOR extends USUARIO {
     
                 case "B":
                     area.append("EN CURSO:\n");
-                    for (int i = 0; i < ADMINISTRADOR.cantidadTareas; i++) {
-                        TAREAS t = ADMINISTRADOR.tareas[i];
+                    for (int i = 0; i < ADMINISTRADOR.contadorTareas; i++) {
+                        TAREAS n = ADMINISTRADOR.listaTareas[i];
                         if (t != null && t.getUsuario() != null &&
                             t.getUsuario().getID().equals(this.getID()) &&
                             t.getEstado().equalsIgnoreCase("en curso")) {
@@ -112,8 +112,8 @@ public class DESARROLLADOR extends USUARIO {
     
                 case "C":
                     area.append("COMPLETADAS:\n");
-                    for (int i = 0; i < ADMINISTRADOR.cantidadTareas; i++) {
-                        TAREAS t = ADMINISTRADOR.tareas[i];
+                    for (int i = 0; i < ADMINISTRADOR.contadorTareas; i++) {
+                        TAREAS t = ADMINISTRADOR.listaTareas[i];
                         if (t != null && t.getUsuario() != null &&
                             t.getUsuario().getID().equals(this.getID()) &&
                             t.getEstado().equalsIgnoreCase("completada")) {
@@ -138,21 +138,21 @@ public class DESARROLLADOR extends USUARIO {
     }
 
     /**
-     * El desarrollador  puede actualizar SUS PROPIAS tareas por  estado, descripción, fechas estimadas y usuario asignado
+     * El desarrollador permite la actualizacion de SUS PROPIAS tareas por  estado, descripción, fechas estimadas y usuario asignado
      */
 
     public void actualizarTareasDesa() {
         String idTareaDesa = JOptionPane.showInputDialog("Ingresa el ID de la tarea que deseas actualizar:");
         boolean encontrada = false;
     
-        for (int i = 0; i < ADMINISTRADOR.cantidadTareas; i++) {
-            TAREAS t = ADMINISTRADOR.tareas[i];
+        for (int i = 0; i < ADMINISTRADOR.contadorTareas; i++) {
+            TAREAS n = ADMINISTRADOR.listaTareas[i];
     
-            if (t != null &&t.getUsuario() != null &&t.getUsuario().getID().equals(this.getID()) && t.getId().equals(idTareaDesa)) {
+            if (n != null &&n.getUsuario() != null &&n.getUsuario().getID().equals(this.getID()) && n.getId().equals(idTareaDesa)) {
                 encontrada = true;
     
                 if ("completada".equals(t.getEstado())) {
-                    JOptionPane.showMessageDialog(null, "NO SE PUEDE MODIFICAR UNA TAREA COMPLETADA");
+                    JOptionPane.showMessageDialog(null, "Lo sentimos, si la tarea se encuntra en estado completada, ya no se puede modificar");
                     return;
                 }
     
@@ -160,8 +160,8 @@ public class DESARROLLADOR extends USUARIO {
                  * Permite al desarrollador actualizar el estado de la tarea tomando en cuenta 
                  * que el flujo debe ser de la forma : Pendiente → En Curso → Completada
                  */
-        String actualizaEstadoDesa = JOptionPane.showInputDialog("¿Quieres modificar el estado? (S / N)");
-        if ("S".equalsIgnoreCase(actualizaEstadoDesa)) {
+        String actualizaEstadoDesa = JOptionPane.showInputDialog("¿Quieres modificar el estado? (Si / No)");
+        if ("Si".equalsIgnoreCase(actualizaEstadoDesa)) {
             String nuevoEstado = JOptionPane.showInputDialog("Nuevo estado (EN CURSO/COMPLETADA) : ");
             if (nuevoEstado == null) return;
             nuevoEstado = nuevoEstado.toLowerCase().trim();
@@ -176,9 +176,9 @@ public class DESARROLLADOR extends USUARIO {
                 JOptionPane.showMessageDialog(null, "ERROR \n NO PUEDES PASAR DIRECTAMENTE DE PENDIENTE A COMPLETADA. PRIMERO DEBE ESTAR EN CURSO");
             } else {
                 if (nuevoEstado.equalsIgnoreCase("EN CURSO")) {
-                    t.setEstado("enCurso");
+                    n.setEstado("enCurso");
                 }else if (nuevoEstado.equalsIgnoreCase("COMPLETADA")) {
-                    t.setEstado("completada");
+                    n.setEstado("completada");
                 }
             }
         }
@@ -187,11 +187,11 @@ public class DESARROLLADOR extends USUARIO {
         * Permite al desarrollador cambiar la descripción de la Tarea
         */
         
-        String actualizaDescDesa = JOptionPane.showInputDialog("¿Quieres modificar la descripción? (S/N)");
-        if ("S".equalsIgnoreCase(actualizaDescDesa)) {
+        String actualizaDescDesa = JOptionPane.showInputDialog("¿Quieres modificar la descripción? (Si/No)");
+        if ("Si".equalsIgnoreCase(actualizaDescDesa)) {
             String nuevaDescripcion = JOptionPane.showInputDialog("Nueva descripción:");
             if (nuevaDescripcion != null && !nuevaDescripcion.trim().isEmpty()) {
-                t.setDescripcion(nuevaDescripcion.trim());
+                n.setDescripcion(nuevaDescripcion.trim());
             }
         }
     
@@ -199,15 +199,15 @@ public class DESARROLLADOR extends USUARIO {
          * Actualiza fechas solo si el desarrollador tiene la tarea con estado pendiente o  en curso
          */
         
-         if ("pendiente".equals(t.getEstado()) || "en curso".equals(t.getEstado())) {
+         if ("pendiente".equals(n.getEstado()) || "en curso".equals(n.getEstado())) {
             
-            String actualizarFechasDesa = JOptionPane.showInputDialog("¿Quieres modificar las fechas estimadas? (S/N)");
-            if ("S".equalsIgnoreCase(actualizarFechasDesa)) {
+            String actualizarFechasDesa = JOptionPane.showInputDialog("¿Quieres modificar las fechas estimadas? (Si/No)");
+            if ("Si".equalsIgnoreCase(actualizarFechasDesa)) {
                 try {
                     String nuevaFechaEI = JOptionPane.showInputDialog("Nueva fecha Estimada de Inicio (yyyy-mm-dd):");
-                    t.setFechaEstimadaInicio(LocalDate.parse(nuevaFechaEI));
+                    n.setFechaEstimadaInicio(LocalDate.parse(nuevaFechaEI));
                     String nuevaFechaEF = JOptionPane.showInputDialog("Nueva fecha estimada de finalización (yyyy-mm-dd):");
-                    t.setFechaEstimadaFin(LocalDate.parse(nuevaFechaEF));
+                    n.setFechaEstimadaFin(LocalDate.parse(nuevaFechaEF));
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, "Fechas inválidas");
                 }
@@ -229,6 +229,7 @@ public class DESARROLLADOR extends USUARIO {
 
 
 }
+
 
 
 
