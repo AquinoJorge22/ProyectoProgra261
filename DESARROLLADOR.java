@@ -19,7 +19,7 @@ public class DESARROLLADOR extends USUARIO {
 
     /**
      * Aqui se hara el registro de las tareas del desarrollador
-     * @param n tarea qdel cual se hara un registro
+     * @param n tarea del cual se hara un registro
      */
     public void enlistarTarea(TAREAS n) {
         if(ADMINISTRADOR.contadorTareas < ADMINISTRADOR.CANTIDAD) {
@@ -45,8 +45,8 @@ public class DESARROLLADOR extends USUARIO {
 
         for (int i = 0; i < ADMINISTRADOR.contadorTareas; i++) {
             TAREAS n = ADMINISTRADOR.listaTareas[i];
-            if (t != null && t.getUsuario().getID().equals(this.getID())) {
-                area.append(t.toString() + "\n");
+            if (n != null && n.getUsuario().getID().equals(this.getID())) {
+                area.append(n.toString() + "\n");
                 tienesTareas = true;
             }
         }
@@ -79,12 +79,12 @@ public class DESARROLLADOR extends USUARIO {
                 case "A":
                     area.append("PENDIENTES:\n");
                     for (int i = 0; i < ADMINISTRADOR.contadorTareas; i++) {
-                        TAREAS t = ADMINISTRADOR.listaTareas[i];
-                        if (t != null && t.getUsuario() != null &&
-                            t.getUsuario().getID().equals(this.getID()) &&
-                            t.getEstado().equalsIgnoreCase("pendiente")) {
+                        TAREAS n = ADMINISTRADOR.listaTareas[i];
+                        if (n != null && n.getUsuario() != null &&
+                            n.getUsuario().getID().equals(this.getID()) &&
+                            n.getEstado().equalsIgnoreCase("pendiente")) {
     
-                            area.append("TAREA:\n" + t + "\n");
+                            area.append("TAREA:\n" + n + "\n");
                             existenciaP = true;
                         }
                     }
@@ -97,11 +97,11 @@ public class DESARROLLADOR extends USUARIO {
                     area.append("EN CURSO:\n");
                     for (int i = 0; i < ADMINISTRADOR.contadorTareas; i++) {
                         TAREAS n = ADMINISTRADOR.listaTareas[i];
-                        if (t != null && t.getUsuario() != null &&
-                            t.getUsuario().getID().equals(this.getID()) &&
-                            t.getEstado().equalsIgnoreCase("en curso")) {
+                        if (n != null && n.getUsuario() != null &&
+                            n.getUsuario().getID().equals(this.getID()) &&
+                            n.getEstado().equalsIgnoreCase("en curso")) {
     
-                            area.append("TAREA:\n" + t + "\n");
+                            area.append("TAREA:\n" + n + "\n");
                             existenciaEnCurso = true;
                         }
                     }
@@ -113,12 +113,12 @@ public class DESARROLLADOR extends USUARIO {
                 case "C":
                     area.append("COMPLETADAS:\n");
                     for (int i = 0; i < ADMINISTRADOR.contadorTareas; i++) {
-                        TAREAS t = ADMINISTRADOR.listaTareas[i];
-                        if (t != null && t.getUsuario() != null &&
-                            t.getUsuario().getID().equals(this.getID()) &&
-                            t.getEstado().equalsIgnoreCase("completada")) {
+                        TAREAS n = ADMINISTRADOR.listaTareas[i];
+                        if (n != null && n.getUsuario() != null &&
+                            n.getUsuario().getID().equals(this.getID()) &&
+                            n.getEstado().equalsIgnoreCase("completada")) {
     
-                            area.append("TAREA:\n" + t + "\n");
+                            area.append("TAREA:\n" + n + "\n");
                             existenciaC = true;
                         }
                     }
@@ -220,7 +220,7 @@ public class DESARROLLADOR extends USUARIO {
         }
         
         if (!encontrada) {
-            JOptionPane.showMessageDialog(null, "NO SE ENCONTRO NINGUNA TAREA CON EL ID SELECCIONADO");
+            JOptionPane.showMessageDialog(null, "No se encontro nunguna tarea con el ID seleccionado");
         }
     }
 
@@ -229,6 +229,7 @@ public class DESARROLLADOR extends USUARIO {
 
 
 }
+
 
 
 
