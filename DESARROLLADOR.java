@@ -21,12 +21,12 @@ public class DESARROLLADOR extends USUARIO {
      * Registra las tareas del desarrollador
      * @param x tarea que se va a registrar
      */
-    public void enlistarTarea(TAREAS t) {
+    public void enlistarTarea(TAREAS x) {
         if(ADMINISTRADOR.cantidadTareas < ADMINISTRADOR.CANTIDAD) {
-            t.setUsuario(this);
-            ADMINISTRADOR.tareas[ADMINISTRADOR.cantidadTareas] = t;
+            x.setUsuario(this);
+            ADMINISTRADOR.tareas[ADMINISTRADOR.cantidadTareas] = x;
             ADMINISTRADOR.cantidadTareas++;
-            JOptionPane.showMessageDialog(null, "Se ha creado correctamente la tarea\n");
+            JOptionPane.showMessageDialog(null, "Tarea creada exitosamente\n");
         } else {
             JOptionPane.showMessageDialog(null, "LO SIENTO , NO SE PUEDEN AÑADIR TAREAS ");
         }
@@ -229,6 +229,7 @@ public class DESARROLLADOR extends USUARIO {
 
 
 }
+
 
 
 
