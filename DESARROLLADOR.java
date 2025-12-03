@@ -19,9 +19,9 @@ public class DESARROLLADOR extends USUARIO {
 
     /**
      * Registra las tareas del desarrollador
-     * @param t tarea que se va a registrar
+     * @param x tarea que se va a registrar
      */
-    public void registrarTarea(TAREAS t) {
+    public void enlistarTarea(TAREAS t) {
         if(ADMINISTRADOR.cantidadTareas < ADMINISTRADOR.CANTIDAD) {
             t.setUsuario(this);
             ADMINISTRADOR.tareas[ADMINISTRADOR.cantidadTareas] = t;
@@ -229,5 +229,6 @@ public class DESARROLLADOR extends USUARIO {
 
 
 }
+
 
 
