@@ -2,8 +2,7 @@
  * Programa que hace uso de la clase DESARROLLADOR, heredada de la clase USUARIO, para 
  * realizar diversas acciones sobre las tareas del sistema que le corresponden.
  * @author Gabriel Reyes
- * @author Paula López
- * @version 1.0, 23/05/2025
+ * @version 1.0, 02/12/2025
  * @see DESARROLLADOR
  */
 import javax.swing.JOptionPane;
@@ -230,4 +229,5 @@ public class DESARROLLADOR extends USUARIO {
 
 
 }
+
 
