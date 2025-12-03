@@ -85,10 +85,10 @@ public class DESARROLLADOR extends USUARIO {
                             n.getEstado().equalsIgnoreCase("pendiente")) {
     
                             area.append("TAREA:\n" + n + "\n");
-                            existenciaP = true;
+                            existenciaPendiente = true;
                         }
                     }
-                    if (!existenciaP) {
+                    if (!existenciaPendiente) {
                         area.append("No tienes tareas pendientes.\n");
                     }
                     break;
@@ -119,10 +119,10 @@ public class DESARROLLADOR extends USUARIO {
                             n.getEstado().equalsIgnoreCase("completada")) {
     
                             area.append("TAREA:\n" + n + "\n");
-                            existenciaC = true;
+                            existenciaCompletada = true;
                         }
                     }
-                    if (!existenciaC) {
+                    if (!existenciaCompletada) {
                         area.append("No tienes tareas completadas.\n");
                     }
                     break;
@@ -229,6 +229,7 @@ public class DESARROLLADOR extends USUARIO {
 
 
 }
+
 
 
 
