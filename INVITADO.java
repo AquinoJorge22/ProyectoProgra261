@@ -26,10 +26,10 @@ public class INVITADO extends USUARIO{
     
             
     
-            for (int i = 0; i < ADMINISTRADOR.cantidadTareas; i++) {
-                TAREAS t = ADMINISTRADOR.tareas[i];
-                if (t != null && t.getUsuario().getID().equals(this.getID())) {
-                    area.append(t.toString() + "\n");
+            for (int i = 0; i < ADMINISTRADOR.contadorTareas; i++) {
+                TAREAS n = ADMINISTRADOR.listaTareas[i];
+                if (n != null && n.getUsuario().getID().equals(this.getID())) {
+                    area.append(n.toString() + "\n");
                     tienesTareas = true;
                 }
                 JScrollPane scroll = new JScrollPane(area);
@@ -37,7 +37,7 @@ public class INVITADO extends USUARIO{
             }
     
             if (!tienesTareas) {
-                JOptionPane.showMessageDialog(null, "NO EXISTEN TAREAS EN EL SISTEMA");
+                JOptionPane.showMessageDialog(null, "No se encontraron tareas en el sistema");
             }
     
         }
@@ -46,12 +46,12 @@ public class INVITADO extends USUARIO{
          * Fltra las tareas del invitado por el estado : pendiente, completada o en curso
          */
         public void filtrarTareasEstadoInv() {
-            boolean existenciaP = false;
+            boolean existenciaPendiente = false;
             boolean existenciaEnCurso = false;
-            boolean existenciaC = false;
+            boolean existenciaCompletada = false;
         
             if (ADMINISTRADOR.cantidadTareas == 0) {
-                 JOptionPane.showMessageDialog(null, "NO EXISTEN TAREAS EN EL SISTEMA");
+                 JOptionPane.showMessageDialog(null, "No se encontraron tareas en el sistema");
             } else {
                 String estadoF = JOptionPane.showInputDialog("Elige el estado (A/B/C):\nA) PENDIENTES\nB) EN CURSO\nC) COMPLETADAS");
                 JTextArea area = new JTextArea("LISTA DE TUS TAREAS\n\n", 10, 40);
@@ -59,28 +59,28 @@ public class INVITADO extends USUARIO{
                 switch (estadoF.toUpperCase()) {
                     case "A":
                         area.append("PENDIENTES:\n");
-                        for (int i = 0; i < ADMINISTRADOR.cantidadTareas; i++) {
-                            TAREAS t = ADMINISTRADOR.tareas[i];
-                            if (t != null && t.getUsuario() != null &&
-                                t.getUsuario().getID().equals(this.getID()) &&
-                                t.getEstado().equalsIgnoreCase("pendiente")) {
+                        for (int i = 0; i < ADMINISTRADOR.contadorTareas; i++) {
+                            TAREAS n = ADMINISTRADOR.listaTareas[i];
+                            if (n != null && n.getUsuario() != null &&
+                                n.getUsuario().getID().equals(this.getID()) &&
+                                n.getEstado().equalsIgnoreCase("pendiente")) {
         
-                                area.append("TAREA:\n" + t + "\n");
-                                existenciaP = true;
+                                area.append("TAREA:\n" + n + "\n");
+                                existenciaPendiente = true;
                             }
                         }
-                        if (!existenciaP) {
+                        if (!existenciaPendiente) {
                             area.append("No tienes tareas pendientes.\n");
                         }
                         break;
         
                     case "B":
                         area.append("EN CURSO:\n");
-                        for (int i = 0; i < ADMINISTRADOR.cantidadTareas; i++) {
-                            TAREAS t = ADMINISTRADOR.tareas[i];
-                            if (t != null && t.getUsuario() != null &&
-                                t.getUsuario().getID().equals(this.getID()) &&
-                                t.getEstado().equalsIgnoreCase("en curso")) {
+                        for (int i = 0; i < ADMINISTRADOR.contadorTareas; i++) {
+                            TAREAS n = ADMINISTRADOR.listaTareas[i];
+                            if (n != null && n.getUsuario() != null &&
+                                n.getUsuario().getID().equals(this.getID()) &&
+                                n.getEstado().equalsIgnoreCase("en curso")) {
         
                                 area.append("TAREA:\n" + t + "\n");
                                 existenciaEnCurso = true;
@@ -93,17 +93,17 @@ public class INVITADO extends USUARIO{
         
                     case "C":
                         area.append("COMPLETADAS:\n");
-                        for (int i = 0; i < ADMINISTRADOR.cantidadTareas; i++) {
-                            TAREAS t = ADMINISTRADOR.tareas[i];
-                            if (t != null && t.getUsuario() != null &&
-                                t.getUsuario().getID().equals(this.getID()) &&
-                                t.getEstado().equalsIgnoreCase("completada")) {
+                        for (int i = 0; i < ADMINISTRADOR.contadorTareas; i++) {
+                            TAREAS n = ADMINISTRADOR.listaTareas[i];
+                            if (n != null && n.getUsuario() != null &&
+                                n.getUsuario().getID().equals(this.getID()) &&
+                                n.getEstado().equalsIgnoreCase("completada")) {
         
                                 area.append("TAREA:\n" + t + "\n");
-                                existenciaC = true;
+                                existenciaCompletada = true;
                             }
                         }
-                        if (!existenciaC) {
+                        if (!existenciaCompletada) {
                             area.append("No tienes tareas completadas.\n");
                         }
                         break;
@@ -117,6 +117,7 @@ public class INVITADO extends USUARIO{
                 JOptionPane.showMessageDialog(null, scroll, "INFORMACION", JOptionPane.INFORMATION_MESSAGE);
             }
         }
+
 
 
 
