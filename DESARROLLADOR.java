@@ -5,7 +5,7 @@
  * @author Blancas Mejía Laura Mariana
  * @author Campos Sierra Diane Yriatzi
  * @author Eugenio López Maritza Marlem 
- * @version 1.0, 02/12/2025
+ * @version 1.0
  * @see DESARROLLADOR
  */
 import javax.swing.JOptionPane;
@@ -228,5 +228,6 @@ public class DESARROLLADOR extends USUARIO {
     }
 }   
 }
+
 
 
