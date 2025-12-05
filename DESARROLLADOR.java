@@ -1,7 +1,10 @@
 /**
  * Este programa de la clase DESARROLLADOR, heredada de la clase USUARIO, sirve para 
  * realizar acciones como registrar tareas, sobre las tareas del sistema que le corresponden.
- * @author Maritza Eugenio
+* @author Aquino Sumuano Jorge Carlos
+ * @author Blancas Mejía Laura Mariana
+ * @author Campos Sierra Diane Yriatzi
+ * @author Eugenio López Maritza Marlem 
  * @version 1.0, 02/12/2025
  * @see DESARROLLADOR
  */
@@ -223,9 +226,6 @@ public class DESARROLLADOR extends USUARIO {
             JOptionPane.showMessageDialog(null, "No se encontro nunguna tarea con el ID seleccionado");
         }
     }
-
-
-    
-
-
+}   
 }
+
