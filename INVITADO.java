@@ -5,7 +5,7 @@
  * @author Blancas Mejía Laura Mariana
  * @author Campos Sierra Diane Yriatzi
  * @author Eugenio López Maritza Marlem 
- * @version 1.0, 23/05/2025
+ * @version 1.0
  * @see INVITADO
  */
 import javax.swing.JOptionPane;
@@ -124,4 +124,5 @@ public class INVITADO extends USUARIO{
 
 
 }
+
 
