@@ -22,7 +22,7 @@ public class DESARROLLADOR extends USUARIO {
      * @param n tarea del cual se hara un registro
      */
     public void enlistarTarea(TAREAS n) {
-        if(ADMINISTRADOR.contadorTareas < ADMINISTRADOR.CANTIDAD) {
+        if(ADMINISTRADOR.contadorTareas < ADMINISTRADOR.MAX_USUARIOS) {
             n.setUsuario(this);
             ADMINISTRADOR.listaTareas[ADMINISTRADOR.contadorTareas] = n;
             ADMINISTRADOR.contadorTareas++;
@@ -151,7 +151,7 @@ public class DESARROLLADOR extends USUARIO {
             if (n != null &&n.getUsuario() != null &&n.getUsuario().getID().equals(this.getID()) && n.getId().equals(idTareaDesa)) {
                 encontrada = true;
     
-                if ("completada".equals(t.getEstado())) {
+                if ("completada".equals(n.getEstado())) {
                     JOptionPane.showMessageDialog(null, "Lo sentimos, si la tarea se encuntra en estado completada, ya no se puede modificar");
                     return;
                 }
@@ -172,7 +172,7 @@ public class DESARROLLADOR extends USUARIO {
             }
             if ("pendiente".equalsIgnoreCase(nuevoEstado)) {
                 JOptionPane.showMessageDialog(null, "NO SE PUEDE VOLVER A PENDIENTE");
-            } else if ("COMPLETADA".equalsIgnoreCase(nuevoEstado) && "pendiente".equals(t.getEstado())) {
+            } else if ("COMPLETADA".equalsIgnoreCase(nuevoEstado) && "pendiente".equals(n.getEstado())) {
                 JOptionPane.showMessageDialog(null, "ERROR \n NO PUEDES PASAR DIRECTAMENTE DE PENDIENTE A COMPLETADA. PRIMERO DEBE ESTAR EN CURSO");
             } else {
                 if (nuevoEstado.equalsIgnoreCase("EN CURSO")) {
@@ -229,10 +229,3 @@ public class DESARROLLADOR extends USUARIO {
 
 
 }
-
-
-
-
-
-
-
