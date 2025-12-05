@@ -139,7 +139,7 @@ public static void main(String[] LISTADETAREAS ){
                                         } while (iDRep==true);
 
                                 TAREAS t2= new TAREAS(id2, estado, u3, descripcion,fechaEstimadaIn, fechaIn, fechaEstimadaFin, fechaFin);
-                                u2.crearTareasAdmin(t2);
+                                u2.crearTareaAdmin(t2);
                                 rep=solicitaElementos("Deseas crear otra tarea? (S/N)");
                                 }while("S".equalsIgnoreCase(rep));
                                 break;    
@@ -156,14 +156,14 @@ public static void main(String[] LISTADETAREAS ){
                                     String estadoF;
                                     try {
                                         if ("A".equals(filtrar)) {
-                                            u2.filtrarTareasEstadoAdmin();
+                                            u2.filtrarTareasPorEstado();
                                         }else if ("B".equals(filtrar)) {
                                             estadoF=solicitaElementos("Ingresa el ID del usuario\n");
                                             for (int j = 0; j < CANTIDAD; j++) {
                                                 if (usuarios[j]!=null && usuarios[j].ID.equals(estadoF) ){
                                                     usuarioExistente=true;
                                                     u4=usuarios[j];
-                                                    u2.filtrarTareasUsuarioAdmin(u4);
+                                                    u2.filtrarTareasPorUsuario(u4);
                                                     break;
                                                 }
                                             }
@@ -183,7 +183,7 @@ public static void main(String[] LISTADETAREAS ){
                                 case "5"://ACTUALIZAR TAREA
                                 do {
                                     String idTareas=solicitaElementos("Ingresa el ID de la tarea que desea actualizar");
-                                    u2.actualizarTareasAdmin(idTareas);
+                                    u2.actualizarTareaPorId(idTareas);
                                     rep=solicitaElementos("Deseas actualizar otra tarea? (S/N)");
                                 } while ("S".equalsIgnoreCase(rep));
                                 break;
@@ -191,7 +191,7 @@ public static void main(String[] LISTADETAREAS ){
                                 case "6"://ELIMINAR TAREA
                                 do {
                                     String idTareaEliminar= solicitaElementos("Ingresa el ID de la tarea que deseas eliminar");
-                                    u2.eliminarTareas(idTareaEliminar);
+                                    u2.eliminarTareaPorId(idTareaEliminar);
                                     rep=solicitaElementos("Deseas eliminar otra tarea? (S/N)");
                                 } while ("S".equalsIgnoreCase(rep));
                                 break;
@@ -215,8 +215,8 @@ public static void main(String[] LISTADETAREAS ){
                                     idRepetido = false;
                                     Random rand = new Random();
                                     idTarea = Integer.toString(rand.nextInt(1000));
-                                    for (int j = 0; j < ADMINISTRADOR.cantidad; j++) {
-                                        if (ADMINISTRADOR.tareas[j] != null && ADMINISTRADOR.tareas[j].getId().equals(idTarea)) {
+                                    for (int j = 0; j < ADMINISTRADOR.MAX_TAREAS; j++) {
+                                        if (ADMINISTRADOR.listaTareas[j] != null && ADMINISTRADOR.listaTareas[j].getId().equals(idTarea)) {
                                             idRepetido = true;
                                             break;
                                         }
@@ -242,7 +242,7 @@ public static void main(String[] LISTADETAREAS ){
                                 }
 
                                 TAREAS nueva = new TAREAS(idTarea, estado, desarrollador, descripcion, fechaEstimadaInicio, fechaInicio, fechaEstimadaFin, fechaFin);
-                                desarrollador.registrarTarea(nueva);
+                                desarrollador.enlistarTarea(nueva);
                                 rep=solicitaElementos("Deseas crear otra tarea?(S/N)");
                                 }while("S".equalsIgnoreCase(rep));
                                 break;
@@ -255,7 +255,7 @@ public static void main(String[] LISTADETAREAS ){
                                 //Filtrar tareas
                                 case "3":
                                 do {
-                                    desarrollador.filtrarTareasEstadoDesa();
+                                    desarrollador.filtrarTareasPorEstado();
                                     rep=solicitaElementos("Deseas elegir otro filtro? (S/N)");
                                 } while ("S".equalsIgnoreCase(rep));
                                 break;
@@ -325,13 +325,3 @@ public static void main(String[] LISTADETAREAS ){
     }
 
 }
-
-
-
-
-
-
-
-
-
-
