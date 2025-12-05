@@ -22,7 +22,7 @@ public class USUARIO {
      // ----- CONSTRUCTOR DEL USUARIO ----- 
      * @param ID Identificador único que se le asigna
      * @param nombreUsuario Nombre del usuario
-     * @param nickname Alias que se le asignara al usurio dentro del sistema
+     * @param nickname Alias que se le asignara al usuario dentro del sistema
      * @param correo Correo del usuario
      * @param contrasena Contraseña del usuario
      * @param tipoUsuario 
@@ -104,7 +104,7 @@ public class USUARIO {
      * @return El nombre de usuario. 
      */
      
-    public String getnombreUsuario() {
+    public String getNombreUsuario() {
         return nombreUsuario;
     }
 
@@ -141,9 +141,15 @@ public class USUARIO {
      */
     public String getTipoUsuario() {
       switch (tipoUsuario){
+        case "administrador":
         case "1": return "Administrador";
+
+        case "desarrollador":   
         case "2": return "Desarrollador";
+
+        case "invitado":
         case "3": return "Invitado";
+        
         default: return "Desconocido";
       }
       
@@ -201,3 +207,4 @@ public class USUARIO {
     }
 
 }
+
