@@ -450,7 +450,8 @@ public class ADMINISTRADOR extends USUARIO {
                 if (desc == null) return;
                 String fechaEstIn = solicitarEntrada("Fecha estimada inicio (aaaa-mm-dd) - opcional:");
                 LocalDate fechaEI = (fechaEstIn == null || fechaEstIn.trim().isEmpty()) ? null : LocalDate.parse(fechaEstIn.trim());
-
+                LocalDate fechaEF = (fechaEstFin == null || fechaEstFin.trim().isEmpty()) ? null : LocalDate.parse(fechaEstFin.trim());
+                 
                 TAREAS nueva = new TAREAS(id.trim(), desc.trim(), usuarioAsignado, 
                                            fechaEI, fechaEF);
                 crearTareaAdmin(nueva);
@@ -502,4 +503,5 @@ public class ADMINISTRADOR extends USUARIO {
         lanzarInterfazAdmin();
     }
 }
+
 
