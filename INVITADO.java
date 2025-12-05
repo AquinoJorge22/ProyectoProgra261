@@ -1,8 +1,10 @@
 /**
  *Programa que hace uso de la clase INVITADO, heredada de la clase USUARIO, para 
  * visualizar las tareas que le corresponden.
- * @author Gabriel Reyes
- * @author Paula López
+* @author Aquino Sumuano Jorge Carlos
+ * @author Blancas Mejía Laura Mariana
+ * @author Campos Sierra Diane Yriatzi
+ * @author Eugenio López Maritza Marlem 
  * @version 1.0, 23/05/2025
  * @see INVITADO
  */
