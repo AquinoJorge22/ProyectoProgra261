@@ -14,29 +14,29 @@ import javax.swing.JOptionPane;
 public class LISTADETAREAS{
 
 public static void main(String[] LISTADETAREAS ){ 
-    String pedirNickname="";
-    String pedirContrasena="";
+    String NicknameUsuario="";
+    String ContrasenaUsuario="";
     String menuAdministrador,menuDesarrollador,menuInvitado;
-    String seguirONo=""; 
-    String inicio="";
+    String otraVez=""; 
+    String opc="";
     String rep="";
-    final int CANTIDAD=1000;//cantidad maxima de usuarios
-    USUARIO usuarios[]= new USUARIO[CANTIDAD];
-    final int cantidad= 1000000;//cantidad maxima de tareas
-    TAREAS [] tareas= new TAREAS[cantidad];
+    final int MAX_USUARIOS=1000;//cantidad maxima de usuarios
+    USUARIO usuarios[]= new USUARIO[MAX_USUARIOS];
+    final int MAX_TAREAS= 1000000;//cantidad maxima de tareas
+    TAREAS [] tareas= new TAREAS[MAX_TAREAS];
     usuarios[0] = new ADMINISTRADOR("10", "Araceli", "Mercado", "araceli@gmail.com", "1234", "Administrador");
     usuarios[1] = new DESARROLLADOR("11", "Diego", "Alberto", "diego@gmail.com", "5678", "Desarrollador");
     usuarios[2] = new INVITADO("12", "Diana", "Rojas", "diana@gmail.com", "9876", "Invitado");
-    inicio= solicitaElementos("BIENVENIDO\n 1. Iniciar sesión 2. Salir");
+    opc= solicitarInput("Bienvenido, seleccione una opción: \n 1. Iniciar sesión \n 2. Salir");
         //INICIA SESIÓN
         try{
-        if ("1".equals(inicio)) {
+        if ("1".equals(opc)) {
         //PIDE DATOS DEL USUARIO
-            pedirNickname= solicitaElementos("Ingresa tu nickname o correo ");
-            pedirContrasena= solicitaElementos("Ingresa tu contraseña");
+            NicknameUsuario= solicitarInput("Ingresa tu nickname o correo ");
+            ContrasenaUsuario= solicitarInput("Ingresa tu contraseña");
             //REVISA SI EXISTE EL USUARIO
-            for (int i = 0; i <CANTIDAD; i++) {
-                if ( usuarios[i]!= null && pedirNickname.equals(usuarios[i].nickname) && pedirContrasena.equals(usuarios[i].contrasena) || pedirNickname.equals(usuarios[i].correo) && pedirContrasena.equals(usuarios[i].contrasena)) {
+            for (int i=0;i<MAX_USUARIOS; i++) {
+                if ( usuarios[i]!= null && NicknameUsuario.equals(usuarios[i].nickname) && ContrasenaUsuario.equals(usuarios[i].contrasena) || NicknameUsuario.equals(usuarios[i].correo) && ContrasenaUsuario.equals(usuarios[i].contrasena)) {
                     //MANTIENE AL USUARIO EN EL PROGRAMA HASTA QUE DECIDA LO CONTRARIO
                     do{
                          //SI EL USUARIO ES ADMINISTRADOR
@@ -44,39 +44,39 @@ public static void main(String[] LISTADETAREAS ){
                             //EL USUARIO QUE ENTRA ES U2
                             ADMINISTRADOR u2= (ADMINISTRADOR) usuarios[i];
                             //MUESTRA MENÚ
-                            menuAdministrador=solicitaElementos("MENÚ ADMINISTRADOR\n 1. Agregar usuario\n 2.Crear tareas\n 3.Ver tareas\n 4.Filtrar tareas\n 5.Actualizar tareas\n 6.Eliminar tareas");
+                            menuAdministrador=solicitarInput("MENÚ ADMINISTRADOR\n 1. Agregar usuario\n 2.Crear tareas\n 3.Ver tareas\n 4.Filtrar tareas\n 5.Actualizar tareas\n 6.Eliminar tareas");
                            //SEGÚN LA ACCIÓN QUE QUIERA REALIZAR EL ADMINISTRADOR
                             switch (menuAdministrador) {
 
                                 case "1": //AGREGA UN USUARIO
                                 String tipoUsuario1;
                                 do{
-                                String nombreusuario1 = solicitaElementos("Nombre de usuario ");
-                                String nickname1= solicitaElementos("Nickname ");
-                                String correo1 = solicitaElementos("Correo electrónico");
-                                String contrasena1 = solicitaElementos("Contraseña ");
-                                boolean idRep;
+                                String nombreusuario1 = solicitarInput("Nombre del nuevo usuario ");
+                                String nickname1= solicitarInput("Nickname del nuevo usuario ");
+                                String correo1 = solicitarInput("Correo electrónico del nuevo usuario ");
+                                String contrasena1 = solicitarInput("Contraseña del nuevo usuario ");
+                                boolean IDcorrecto;
                                 String id1;
                                 USUARIO u1 = null;
                                 
-                                tipoUsuario1 = solicitaElementos("Tipo de usuario\n Elige el número de acuerdo al tipo de usuario\n 1.ADMINISTRADOR\n 2.DESARROLLADOR\n 3.INVITADO ");
+                                tipoUsuario1 = solicitarInput("Tipo de usuario\n Elige el número de acuerdo al tipo de usuario\n 1.ADMINISTRADOR\n 2.DESARROLLADOR\n 3.INVITADO ");
                                 if (!tipoUsuario1.equals("1") && !tipoUsuario1.equals("2") && !tipoUsuario1.equals("3")) {
                                     JOptionPane.showMessageDialog(null, "El tipo de usuario ingresado no es válido", "ERROR", JOptionPane.ERROR_MESSAGE);
                                     break;
                                 }
 
                                 do {
-                                     idRep=false;
+                                     IDcorrecto=false;
                                     Random aleatorio= new Random();
                                     int id= aleatorio.nextInt(1000);//Números entre 0 Y 999 para ID
                                     id1 = Integer.toString(id);
-                                    for (int j = 0; j < CANTIDAD; j++) {
+                                    for (int j = 0; j < MAX_USUARIOS; j++) {
                                         if (usuarios[j]!=null && usuarios[j].ID.equals(id1)) {
-                                            idRep = true;
+                                            IDcorrecto = true;
                                             break;
                                         }
                                     }
-                                } while (idRep==true);
+                                } while (IDcorrecto==true);
 
                                 switch (tipoUsuario1) {
                                     case "1":
@@ -90,7 +90,7 @@ public static void main(String[] LISTADETAREAS ){
                                         break;
                                 }
                                 u2.agregarUsuario(u1);
-                                rep=solicitaElementos("Deseas agregar otro usuario?(S/N)");
+                                rep=solicitarInput("Deseas agregar otro usuario?(S/N)");
                                 } while ("S".equalsIgnoreCase(rep)) ;
                                 break;
 
@@ -100,21 +100,21 @@ public static void main(String[] LISTADETAREAS ){
                                 String id2,fechaEI,fechaEF,descripcion,idUsuarioTarea;
                                 LocalDate fechaEstimadaIn=null;
                                 LocalDate fechaEstimadaFin=null;
-                                LocalDate fechaIn,fechaFin;
+                                LocalDate fechaInicio,fechaFinal;
                                 String estado= "pendiente";
                                 do{
-                                descripcion= solicitaElementos("Ingresa la descripción de la tarea a asignar");
-                                idUsuarioTarea=solicitaElementos("Ingresa ID del usuario al que se le asignará la tarea");
+                                descripcion= solicitarInput("Ingresa la descripción de la tarea a asignar");
+                                idUsuarioTarea=solicitarInput("Ingresa ID del usuario al que se le asignará la tarea");
 
-                                for (int j = 0; j < CANTIDAD; j++) {
+                                for (int j = 0; j < MAX_USUARIOS; j++) {
                                     if (usuarios[j]!=null && usuarios[j].ID.equals(idUsuarioTarea)) {
                                         u3=usuarios[j]; 
                                         break;
                                     }
                                 }
                                 try {
-                                    fechaEI = solicitaElementos("Fecha estimada de inicio (aaaa-mm-dd):");
-                                    fechaEF = solicitaElementos("Fecha estimada de finalización (aaaa-mm-dd):");
+                                    fechaEI = solicitarInput("Fecha estimada de inicio (aaaa-mm-dd):");
+                                    fechaEF = solicitarInput("Fecha estimada de finalización (aaaa-mm-dd):");
                                     fechaEstimadaIn = LocalDate.parse(fechaEI);
                                     fechaEstimadaFin = LocalDate.parse(fechaEF);
                                 } catch (Exception e) {
@@ -122,15 +122,15 @@ public static void main(String[] LISTADETAREAS ){
                                     break;
                                 }
 
-                                fechaIn =LocalDate.of(2000, 01, 01) ; // solamente le damos a un valor a la fecha inicial
-                                fechaFin =LocalDate.of(2000, 01, 01) ;//solamente le damos un valor a la fecha final
+                                fechaInicio =LocalDate.of(2000, 01, 01) ; // solamente le damos a un valor a la fecha inicial
+                                fechaFinal =LocalDate.of(2000, 01, 01) ;//solamente le damos un valor a la fecha final
 
                                         do {
                                             iDRep=false;
                                             Random aleatorio= new Random();
                                             int id= aleatorio.nextInt(1000);//Números entre 0 y 999 para ID
                                             id2 = Integer.toString(id);
-                                            for (int j = 0; j < cantidad; j++) {
+                                            for (int j = 0; j < MAX_TAREAS; j++) {
                                                 if (tareas[j]!=null && tareas[j].id.equals(id2)) {
                                                 iDRep = true;
                                                 break;
@@ -138,9 +138,9 @@ public static void main(String[] LISTADETAREAS ){
                                             }
                                         } while (iDRep==true);
 
-                                TAREAS t2= new TAREAS(id2, estado, u3, descripcion,fechaEstimadaIn, fechaIn, fechaEstimadaFin, fechaFin);
+                                TAREAS t2= new TAREAS(id2, estado, u3, descripcion,fechaEstimadaIn, fechaInicio, fechaEstimadaFin, fechaFinal);
                                 u2.crearTareaAdmin(t2);
-                                rep=solicitaElementos("Deseas crear otra tarea? (S/N)");
+                                rep=solicitarInput("Deseas crear otra tarea? (S/N)");
                                 }while("S".equalsIgnoreCase(rep));
                                 break;    
 
@@ -151,15 +151,15 @@ public static void main(String[] LISTADETAREAS ){
                                 case "4"://FILTRA TAREAS
                                 Boolean usuarioExistente=false;
                                 do{
-                                    String filtrar=solicitaElementos("Desea filtrar las tareas por(A/B):\n A) Estado\n B) Usuario");
+                                    String filtrar=solicitarInput("Desea filtrar las tareas por(A/B):\n A) Estado\n B) Usuario");
                                     USUARIO u4=null;
                                     String estadoF;
                                     try {
                                         if ("A".equals(filtrar)) {
                                             u2.filtrarTareasPorEstado();
                                         }else if ("B".equals(filtrar)) {
-                                            estadoF=solicitaElementos("Ingresa el ID del usuario\n");
-                                            for (int j = 0; j < CANTIDAD; j++) {
+                                            estadoF=solicitarInput("Ingresa el ID del usuario\n");
+                                            for (int j = 0; j < MAX_USUARIOS; j++) {
                                                 if (usuarios[j]!=null && usuarios[j].ID.equals(estadoF) ){
                                                     usuarioExistente=true;
                                                     u4=usuarios[j];
@@ -176,23 +176,23 @@ public static void main(String[] LISTADETAREAS ){
                                             JOptionPane.showMessageDialog(null, "USTED NO ELIGIÓ NINGUNA DE LAS OPCIONES EXISTENTES", "ERROR", JOptionPane.ERROR_MESSAGE);
                                         }
                                     } 
-                                    rep=solicitaElementos("Deseas elegir otro filtro? (S/N)");
+                                    rep=solicitarInput("Deseas elegir otro filtro? (S/N)");
                                 }while("S".equalsIgnoreCase(rep))  ;    
                                 break;
 
                                 case "5"://ACTUALIZAR TAREA
                                 do {
-                                    String idTareas=solicitaElementos("Ingresa el ID de la tarea que desea actualizar");
+                                    String idTareas=solicitarInput("Ingresa el ID de la tarea que desea actualizar");
                                     u2.actualizarTareaPorId(idTareas);
-                                    rep=solicitaElementos("Deseas actualizar otra tarea? (S/N)");
+                                    rep=solicitarInput("Deseas actualizar otra tarea? (S/N)");
                                 } while ("S".equalsIgnoreCase(rep));
                                 break;
 
                                 case "6"://ELIMINAR TAREA
                                 do {
-                                    String idTareaEliminar= solicitaElementos("Ingresa el ID de la tarea que deseas eliminar");
+                                    String idTareaEliminar= solicitarInput("Ingresa el ID de la tarea que deseas eliminar");
                                     u2.eliminarTareaPorId(idTareaEliminar);
-                                    rep=solicitaElementos("Deseas eliminar otra tarea? (S/N)");
+                                    rep=solicitarInput("Deseas eliminar otra tarea? (S/N)");
                                 } while ("S".equalsIgnoreCase(rep));
                                 break;
 
@@ -203,7 +203,7 @@ public static void main(String[] LISTADETAREAS ){
                         }else if (usuarios[i].tipoUsuario=="Desarrollador") {
                             // SI EL USUARIO ES DESARROLLADOR
                             DESARROLLADOR desarrollador = (DESARROLLADOR) usuarios[i];
-                            menuDesarrollador=solicitaElementos("MENÚ DESARROLLADOR\n 1.Crear tareas\n 2. Desplegar tareas\n 3.Filtrar tareas\n 4. Actualizar tareas\n");
+                            menuDesarrollador=solicitarInput("MENÚ DESARROLLADOR\n 1.Crear tareas\n 2. Desplegar tareas\n 3.Filtrar tareas\n 4. Actualizar tareas\n");
                             
                             switch (menuDesarrollador) {
                                 //Crear la tarea 
@@ -224,13 +224,13 @@ public static void main(String[] LISTADETAREAS ){
                                 } while (idRepetido);
 
                                 String estado = "pendiente";
-                                String descripcion = solicitaElementos("Descripción de la tarea:");
-                                String fechaEI = solicitaElementos("Fecha estimada de inicio (aaaa-mm-dd):");
-                                String fechaEF = solicitaElementos("Fecha estimada de finalización (aaaa-mm-dd):");
+                                String descripcion = solicitarInput("Descripción de la tarea:");
+                                String fechaEI = solicitarInput("Fecha estimada de inicio (aaaa-mm-dd):");
+                                String fechaEF = solicitarInput("Fecha estimada de finalización (aaaa-mm-dd):");
                                 LocalDate fechaEstimadaInicio = LocalDate.parse(fechaEI);
                                 LocalDate fechaEstimadaFin = LocalDate.parse(fechaEF);
                                 LocalDate fechaInicio = null;
-                                LocalDate fechaFin = null;
+                                LocalDate fechaFinal = null;
 
                                 if (estado.equals("en curso")) {
                                     fechaInicio = LocalDate.now();
@@ -238,12 +238,12 @@ public static void main(String[] LISTADETAREAS ){
                                 
                                 if (estado.equals("completada")) {
                                     fechaInicio = LocalDate.now();
-                                    fechaFin = LocalDate.now();
+                                    fechaFinal = LocalDate.now();
                                 }
 
-                                TAREAS nueva = new TAREAS(idTarea, estado, desarrollador, descripcion, fechaEstimadaInicio, fechaInicio, fechaEstimadaFin, fechaFin);
+                                TAREAS nueva = new TAREAS(idTarea, estado, desarrollador, descripcion, fechaEstimadaInicio, fechaInicio, fechaEstimadaFin, fechaFinal);
                                 desarrollador.enlistarTarea(nueva);
-                                rep=solicitaElementos("Deseas crear otra tarea?(S/N)");
+                                rep=solicitarInput("Deseas crear otra tarea?(S/N)");
                                 }while("S".equalsIgnoreCase(rep));
                                 break;
 
@@ -256,7 +256,7 @@ public static void main(String[] LISTADETAREAS ){
                                 case "3":
                                 do {
                                     desarrollador.filtrarTareasPorEstado();
-                                    rep=solicitaElementos("Deseas elegir otro filtro? (S/N)");
+                                    rep=solicitarInput("Deseas elegir otro filtro? (S/N)");
                                 } while ("S".equalsIgnoreCase(rep));
                                 break;
                                 
@@ -264,7 +264,7 @@ public static void main(String[] LISTADETAREAS ){
                                 case "4":
                                  do {
                                     desarrollador.actualizarTareasDesa();
-                                    rep=solicitaElementos("Deseas actualizar otra tarea? (S/N)");
+                                    rep=solicitarInput("Deseas actualizar otra tarea? (S/N)");
                                 } while ("S".equalsIgnoreCase(rep));
                                 break;
                                 default:
@@ -273,7 +273,7 @@ public static void main(String[] LISTADETAREAS ){
 
                         } else if (usuarios[i].tipoUsuario=="Invitado") {
                             INVITADO invitado = (INVITADO) usuarios[i];
-                            menuInvitado=solicitaElementos("MENÚ INVITADO\n 1.Ver tareas\n 2.Filtrar");
+                            menuInvitado=solicitarInput("MENÚ INVITADO\n 1.Ver tareas\n 2.Filtrar");
                             switch (menuInvitado) {
                                 //Desplegar tareas
                                 case "1":
@@ -284,7 +284,7 @@ public static void main(String[] LISTADETAREAS ){
                                 case "2":
                                 do {
                                     invitado.filtrarTareasEstadoInv();
-                                    rep=solicitaElementos("Deseas actualizar otra tarea? (S/N)");
+                                    rep=solicitarInput("Deseas actualizar otra tarea? (S/N)");
                                 } while ("S".equalsIgnoreCase(rep));
                                 break;
                                 default:
@@ -292,13 +292,13 @@ public static void main(String[] LISTADETAREAS ){
                             }
                         }
                         //PREGUNTA AL USUARIO SI DESEA SEGUIR EN EL SISTEMA O NO
-                        seguirONo= solicitaElementos("Desea regresar al menú y seguir en el programa?(S/N)");
-                    }while (seguirONo.equalsIgnoreCase("S")); //HACE QUE SIGA EN EL PROGRAMA O SALGA
+                        otraVez= solicitarInput("Desea regresar al menú y seguir en el programa?(S/N)");
+                    }while (otraVez.equalsIgnoreCase("S")); //HACE QUE SIGA EN EL PROGRAMA O SALGA
 
                 }
             }
 
-        }else if(inicio.equals("2")){
+        }else if(opc.equals("2")){
             JOptionPane.showMessageDialog(null, "USTED HA DECIDIDO SALIR");
         } else {
             JOptionPane.showMessageDialog(null, "UPS... USTED NO DECIDIÓ ENTRAR NI SALIR", "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -306,10 +306,10 @@ public static void main(String[] LISTADETAREAS ){
         }
 
         }catch(NullPointerException todo){
-             if ("".equals(pedirContrasena)|| "".equals(pedirNickname)) {
+             if ("".equals(ContrasenaUsuario)|| "".equals(NicknameUsuario)) {
                JOptionPane.showMessageDialog(null, "UPS... USTED NO INTRODUJO UN VALOR", "ERROR", JOptionPane.ERROR_MESSAGE);
                return;
-            } else if ("N".equalsIgnoreCase(seguirONo) || "".equals(seguirONo)) {
+            } else if ("N".equalsIgnoreCase(otraVez) || "".equals(otraVez)) {
                 JOptionPane.showMessageDialog(null, "USTED HA DECIDIDO SALIR");
                 return;
             }else{
@@ -319,7 +319,7 @@ public static void main(String[] LISTADETAREAS ){
         
 }
            
-    public static String solicitaElementos(String mensaje ) {
+public static String solicitarInput(String mensaje ) {
             String elementos = JOptionPane.showInputDialog(mensaje);
             return elementos;
     }
