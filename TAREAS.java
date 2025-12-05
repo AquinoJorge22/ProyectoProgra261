@@ -132,7 +132,7 @@ public class TAREAS {
     }
 
     // --------- GETTERS -------
-    public String get Id(){
+    public String getId(){
         return id;
     }
     public String getEstado(){ 
@@ -168,5 +168,6 @@ public class TAREAS {
 
 
 }
+
 
 
