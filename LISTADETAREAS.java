@@ -194,8 +194,8 @@ public class LISTADETAREAS {
                                             } while (iDRep);
 
                                             // Se arma la tarea
-                                            TAREAS t2 = new TAREAS(id2, estado, u3, descripcion, fechaEstimadaIn, fechaInicio,
-                                                    fechaEstimadaFin, fechaFinal);
+                                            TAREAS t2 = new TAREAS(id2, descripcion, u3, fechaEstimadaIn,
+                                                    fechaEstimadaFin);
 
                                             // Y el admin la agrega a la lista global
                                             u2.crearTareaAdmin(t2);
@@ -424,3 +424,4 @@ public class LISTADETAREAS {
         }
     }
 }
+
