@@ -1,7 +1,9 @@
 /**
  * Programa que representa la estructura que cumplen las tareas del sistema.
- * @author Gabriel Reyes
- * @author Paula López
+* @author Aquino Sumuano Jorge Carlos
+ * @author Blancas Mejía Laura Mariana
+ * @author Campos Sierra Diane Yriatzi
+ * @author Eugenio López Maritza Marlem 
  * @version 1.0, 23/05/2025
  * @see TAREAS
  */
@@ -177,5 +179,6 @@ public void setUsuario(USUARIO asignado) {
 /*
 LocalDate cumple = LocalDate.of(2000, 5, 4); // 4 de mayo del 2000
  */
+
 
 
