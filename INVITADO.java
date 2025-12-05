@@ -82,7 +82,7 @@ public class INVITADO extends USUARIO{
                             TAREAS n = ADMINISTRADOR.listaTareas[i];
                             if (n != null && n.getUsuario() != null &&
                                 n.getUsuario().getID().equals(this.getID()) &&
-                                n.getEstado().equalsIgnoreCase("en curso")) {
+                                n.getEstado().equalsIgnoreCase("encurso")) {
         
                                 area.append("TAREA:\n" + n + "\n");
                                 existenciaEnCurso = true;
@@ -124,3 +124,4 @@ public class INVITADO extends USUARIO{
 
 
 }
+
