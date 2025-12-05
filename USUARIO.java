@@ -1,7 +1,9 @@
 /**
  * Programa que representa la estructura que cumplen los usuarios del sistema.
- * @author Gael Dúran
- * @author Ana Gutiérrez
+* @author Aquino Sumuano Jorge Carlos
+ * @author Blancas Mejía Laura Mariana
+ * @author Campos Sierra Diane Yriatzi
+ * @author Eugenio López Maritza Marlem 
  * @version 1.0, 23/05/2025
  * @see USUARIO
  */
@@ -178,4 +180,3 @@ public class USUARIO {
     }
 
 }
-
