@@ -50,7 +50,7 @@ public class TAREAS {
          if (fechaEstimadaInicio.isBefore(LocalDate.now())){
             throw new IllegalArgumentException("Las fechas estimada de inicio no puede ser anterior a la fecha actual. ");
         }   
-         if (fechaEstimadaFin.isBefore(LocalDate.now())){
+         if (fechaEstimadaFin.isBefore(fechaEstimadaInicio)){
              throw new IllegalArgumentException("La fecha estimada final no puede ser antes de la fecha estimada de inicio.");
         }   
 
@@ -168,6 +168,7 @@ public class TAREAS {
 
 
 }
+
 
 
 
