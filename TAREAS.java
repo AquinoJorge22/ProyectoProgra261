@@ -4,7 +4,7 @@
  * @author Blancas Mejía Laura Mariana
  * @author Campos Sierra Diane Yriatzi
  * @author Eugenio López Maritza Marlem 
- * @version 1.0, 
+ * @version 1.0 
  * @see TAREAS
  */
 import java.time.LocalDate;
@@ -183,6 +183,7 @@ public class TAREAS {
 
 
 }
+
 
 
 
