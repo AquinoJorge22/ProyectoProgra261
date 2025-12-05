@@ -50,7 +50,7 @@ public class INVITADO extends USUARIO{
             boolean existenciaEnCurso = false;
             boolean existenciaCompletada = false;
         
-            if (ADMINISTRADOR.cantidadTareas == 0) {
+            if (ADMINISTRADOR.contadorTareas == 0) {
                  JOptionPane.showMessageDialog(null, "No se encontraron tareas en el sistema");
             } else {
                 String estadoF = JOptionPane.showInputDialog("Elige el estado (A/B/C):\nA) PENDIENTES\nB) EN CURSO\nC) COMPLETADAS");
@@ -82,7 +82,7 @@ public class INVITADO extends USUARIO{
                                 n.getUsuario().getID().equals(this.getID()) &&
                                 n.getEstado().equalsIgnoreCase("en curso")) {
         
-                                area.append("TAREA:\n" + t + "\n");
+                                area.append("TAREA:\n" + n + "\n");
                                 existenciaEnCurso = true;
                             }
                         }
@@ -99,7 +99,7 @@ public class INVITADO extends USUARIO{
                                 n.getUsuario().getID().equals(this.getID()) &&
                                 n.getEstado().equalsIgnoreCase("completada")) {
         
-                                area.append("TAREA:\n" + t + "\n");
+                                area.append("TAREA:\n" + n + "\n");
                                 existenciaCompletada = true;
                             }
                         }
