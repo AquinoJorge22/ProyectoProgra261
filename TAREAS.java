@@ -178,3 +178,4 @@ public void setUsuario(USUARIO asignado) {
 LocalDate cumple = LocalDate.of(2000, 5, 4); // 4 de mayo del 2000
  */
 
+
