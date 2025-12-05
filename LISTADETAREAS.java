@@ -8,7 +8,7 @@
  * @author Campos Sierra Diane Yriatzi
  * @author Eugenio López Maritza Marlem 
 
- * @version 1.0, 23/05/2025
+ * @version 1.0
  * @see LISTADETAREAS
  */
 
@@ -424,4 +424,5 @@ public class LISTADETAREAS {
         }
     }
 }
+
 
