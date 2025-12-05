@@ -17,6 +17,8 @@ public class USUARIO {
     private String correo;
     private String contrasena;
     private String tipoUsuario;
+/* Se decidio mantener los atributos privados para asegurar su encapsulamiento
+para asi evitar accesos directos que no se deseen */    
 
     /**
      // ----- CONSTRUCTOR DEL USUARIO ----- 
@@ -27,6 +29,7 @@ public class USUARIO {
      * @param contrasena Contraseña del usuario
      * @param tipoUsuario 
      */
+    
     public USUARIO(String ID, String nombreUsuario, String nickname, String correo, String contrasena, String tipoUsuario){
         this.ID= ID;
         this.nombreUsuario=nombreUsuario;
@@ -37,7 +40,7 @@ public class USUARIO {
     }
 
        
-    // ______ Representación legible ______
+    // ______ Representación ______
     /**
      * Devuleve una representación textual legible del usuario (no se incluye contraseña)
      * Util para mostrar listas o imprimir informacion por consola.
@@ -54,11 +57,11 @@ public class USUARIO {
     } 
 
 
-    // _________equals seguro para comparar credenciales ______
+    // _____ equals ______
     /**
      * Compara dos usuarios: son iguales si coinciden (nickname o correo) y la contraseña.
      * Realiazamos comprobaciones null para evitar NullPointerException.
-     * @param obj El objeto a comparar
+     * @param obj es el objeto a comparar
      * @return True si representan al mismo usuario por las coincidencias, False en otro caso. 
      */
 
@@ -151,6 +154,8 @@ public class USUARIO {
         case "3": return "Invitado";
         
         default: return "Desconocido";
+
+  /* Se desicido usar ambos formatos (numero/palabra) para hacerlo mas flexible */            
       }
       
     }
@@ -200,11 +205,12 @@ public class USUARIO {
 
     /**
      * Cambia el tipo de usuario según su rol.
-     * @param tipoUsuario rol que se le asigna
+     * @param tipoUsuario, rol que se le asigna
      */
     public void setTipoUsuario(String tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
     }
 
 }
+
 
