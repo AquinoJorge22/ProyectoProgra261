@@ -31,19 +31,15 @@ public class ADMINISTRADOR extends USUARIO {
     public static USUARIO[] listaUsuarios = new USUARIO[MAX_USUARIOS];
 
     /** Número actual de usuarios registrados en {@link #listaUsuarios}. */
-    public static int contadorUsuarios;
+    public static int contadorUsuarios = 0;
 
     /** Máximo de tareas permitidas en el arreglo interno. */
     public static final int MAX_TAREAS = 1_000_000;
 
     /** Arreglo que contiene las tareas del sistema. */
     public static TAREAS[] listaTareas = new TAREAS[MAX_TAREAS];
-
-    /**
-     * Número actual de tareas registradas en {@link #listaTareas}.
-     * Se parte con 1 para mantener compatibilidad con la inicialización original.
-     */
-    public static int contadorTareas = 1;
+    
+    public static int contadorTareas = 0;
 
     /* ======
        BLOQUE DE INICIALIZACIÓN ESTÁTICO
@@ -57,10 +53,8 @@ public class ADMINISTRADOR extends USUARIO {
         contadorUsuarios = 3;
 
         // Tarea de ejemplo (se asume constructor de TAREAS como en tu versión original)
-        LocalDate fechaEstimadaIn1 = LocalDate.parse("2025-05-12");
-        LocalDate fechaIn1 = LocalDate.parse("2025-05-13");
-        LocalDate fechaEstimadaFin1 = LocalDate.parse("2025-05-25");
-        LocalDate fechaFin1 = LocalDate.parse("2025-05-23");
+        LocalDate fechaEstimadaIn1 = LocalDate.now().plus(3);
+        LocalDate fechaEstimadaFin1 = LocalDate.now().plusDays(15);
         listaTareas[0] = new TAREAS("12", "La tarea de progra es sobre usuarios", listaUsuarios[2], 
             fechaEstimadaIn1, fechaEstimadaFin1);
     }
@@ -503,5 +497,6 @@ public class ADMINISTRADOR extends USUARIO {
         lanzarInterfazAdmin();
     }
 }
+
 
 
