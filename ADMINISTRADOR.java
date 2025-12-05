@@ -61,8 +61,8 @@ public class ADMINISTRADOR extends USUARIO {
         LocalDate fechaIn1 = LocalDate.parse("2025-05-13");
         LocalDate fechaEstimadaFin1 = LocalDate.parse("2025-05-25");
         LocalDate fechaFin1 = LocalDate.parse("2025-05-23");
-        listaTareas[0] = new TAREAS("12", "completada", listaUsuarios[2], "La tarea de progra es sobre usuarios",
-                fechaEstimadaIn1, fechaIn1, fechaEstimadaFin1, fechaFin1);
+        listaTareas[0] = new TAREAS("12", "La tarea de progra es sobre usuarios", listaUsuarios[2], 
+            fechaEstimadaIn1, fechaEstimadaFin1);
     }
 
     /* ======================
@@ -209,7 +209,7 @@ public class ADMINISTRADOR extends USUARIO {
             JOptionPane.showMessageDialog(null, "Todavía no existen tareas");
             return;
         }
-        JTextArea area = new JTextArea("LISTA DE TAREAS PARA " + usuario.nickname + "\n", 15, 50);
+        JTextArea area = new JTextArea("LISTA DE TAREAS PARA " + usuario.getNickname() + "\n", 15, 50);
         boolean tareaUsuario = false;
         for (int i = 0; i < listaTareas.length; i++) {
             if (listaTareas[i] != null && listaTareas[i].usuario.equals(usuario)) {
@@ -217,7 +217,7 @@ public class ADMINISTRADOR extends USUARIO {
                 tareaUsuario = true;
             }
         }
-        if (!tareaUsuario) area.append("Todavía no existen tareas para " + usuario.nickname);
+        if (!tareaUsuario) area.append("Todavía no existen tareas para " + usuario.getNickname());
         area.setEditable(false);
         JScrollPane scroll = new JScrollPane(area);
         JOptionPane.showMessageDialog(null, scroll, "INFORMACIÓN", JOptionPane.INFORMATION_MESSAGE);
@@ -264,10 +264,10 @@ public class ADMINISTRADOR extends USUARIO {
                     if (nuevoIdUsuario != null) {
                         boolean usuarioEncontrado = false;
                         for (int j = 0; j < MAX_USUARIOS; j++) {
-                            if (listaUsuarios[j] != null && nuevoIdUsuario.equals(listaUsuarios[j].ID)) {
+                            if (listaUsuarios[j] != null && nuevoIdUsuario.equals(listaUsuarios[j].getID())) {
                                 usuarioEncontrado = true;
                                 listaTareas[i].usuario = listaUsuarios[j];
-                                JOptionPane.showMessageDialog(null, "Se realizó la modificación al usuario de la tarea:\nEl nuevo usuario es: " + listaTareas[i].usuario.nickname);
+                                JOptionPane.showMessageDialog(null, "Se realizó la modificación al usuario de la tarea:\nEl nuevo usuario es: " + listaTareas[i].usuario.getNickname());
                                 break;
                             }
                         }
@@ -395,7 +395,7 @@ public class ADMINISTRADOR extends USUARIO {
                 if (id == null || id.trim().isEmpty()) return;
                 USUARIO u = null;
                 for (int i = 0; i < MAX_USUARIOS; i++) {
-                    if (listaUsuarios[i] != null && listaUsuarios[i].ID.equals(id.trim())) {
+                    if (listaUsuarios[i] != null && listaUsuarios[i].getID().equals(id.trim())) {
                         u = listaUsuarios[i];
                         break;
                     }
@@ -437,7 +437,7 @@ public class ADMINISTRADOR extends USUARIO {
                 if (idUsuario == null) return;
                 USUARIO usuarioAsignado = null;
                 for (int i = 0; i < MAX_USUARIOS; i++) {
-                    if (listaUsuarios[i] != null && listaUsuarios[i].ID.equals(idUsuario.trim())) {
+                    if (listaUsuarios[i] != null && listaUsuarios[i].getID().equals(idUsuario.trim())) {
                         usuarioAsignado = listaUsuarios[i];
                         break;
                     }
@@ -451,8 +451,8 @@ public class ADMINISTRADOR extends USUARIO {
                 String fechaEstIn = solicitarEntrada("Fecha estimada inicio (aaaa-mm-dd) - opcional:");
                 LocalDate fechaEI = (fechaEstIn == null || fechaEstIn.trim().isEmpty()) ? null : LocalDate.parse(fechaEstIn.trim());
 
-                TAREAS nueva = new TAREAS(id.trim(), estado.trim(), usuarioAsignado, desc.trim(),
-                        fechaEI, null, null, null);
+                TAREAS nueva = new TAREAS(id.trim(), desc.trim(), usuarioAsignado, 
+                                           fechaEI, fechaEF);
                 crearTareaAdmin(nueva);
             });
             panelBotones.add(btnCrearTarea, gbc);
@@ -502,3 +502,4 @@ public class ADMINISTRADOR extends USUARIO {
         lanzarInterfazAdmin();
     }
 }
+
