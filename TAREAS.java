@@ -99,18 +99,18 @@ public class TAREAS {
 
     public void setEstado(String nuevoEstado){
         if (nuevoEstado == null){
-            throw new IllegalArgumentException("El estado no puede ser nulo".);
+            throw new IllegalArgumentException("El estado no puede ser nulo");
         }
 
         String estadoNormalizado = nuevoEstado.toLowerCase().replace(" ","");
 
         switch (estadoNormalizado){
             case "pendiente":
-                this.estado = "pendinete";
+                this.estado = "pendiente";
                 break;
             case "encurso": 
               if (!estado.equalsIgnoreCase("pendiente")){
-                throw new IllegalArgumentException("Solo se puede pasar a 'En curso' desde 'Pendiente'".);
+                throw new IllegalArgumentException("Solo se puede pasar a 'En curso' desde 'Pendiente'");
               }
 
               this.estado = "enCurso";
@@ -168,6 +168,7 @@ public class TAREAS {
 
 
 }
+
 
 
 
