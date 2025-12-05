@@ -153,7 +153,7 @@ public class TAREAS {
     public LocalDate getFechaEstimadaFin(){
         return fechaEstimadaFin;
     }
-    public Local Date getFechaFin(){
+    public LocalDate getFechaFin(){
         return fechafin;
     }
 
@@ -168,6 +168,7 @@ public class TAREAS {
 
 
 }
+
 
 
 
