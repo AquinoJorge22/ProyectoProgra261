@@ -8,6 +8,8 @@
  * @see TAREAS
  */
 import java.time.LocalDate;
+//La teare siempre inicia en 'pendiente' hasta que se active su flujo
+//Utilizamos LocalDate para obtener mejor flexiblidad al gestionar las fechas
 
 public class TAREAS {
    
@@ -24,7 +26,7 @@ public class TAREAS {
     public LocalDate fechaFin;
 
 
-
+//Se trataron de crear validciones para asegurar la coherencia temporal
     /**
      * Construtor de la clase TAREAS.
      *
@@ -105,6 +107,7 @@ public class TAREAS {
         String estadoNormalizado = nuevoEstado.toLowerCase().replace(" ","");
 
         switch (estadoNormalizado){
+  // Se normalizo el estado para eceptar entradas "En curso", "enCurso" o "en curso"            
             case "pendiente":
                 this.estado = "pendiente";
                 break;
@@ -114,6 +117,10 @@ public class TAREAS {
               }
 
               this.estado = "enCurso";
+
+              /* Se registra la fecha real en que la tarea empezo
+              se decidio hacerlo aqui para que solo se marque cuando el estado
+              cambie a 'enCurso'*/
               this.fechaInicio = LocalDate.now();
               break;
 
@@ -122,6 +129,8 @@ public class TAREAS {
                  throw new  IllegalArgumentException("Solo se puede completar una tarea que ya estaba 'En curso'");
                 }  
                 this.estado ="completada";
+
+           // Se registra la fecha real de finalizacion justo cuando la tarea se completa   
                 this.fechaFin = LocalDate.now();
                 break;
 
@@ -168,6 +177,7 @@ public class TAREAS {
 
 
 }
+
 
 
 
