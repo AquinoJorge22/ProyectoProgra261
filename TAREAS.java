@@ -173,10 +173,17 @@ public class TAREAS {
     public void setDescripcion(String descripcion){
         this.descripcion = descripcion;
     }
+    public void setFechaEstimadaInicio(LocalDate fecha) {
+         this.fechaEstimadaInicio = fecha;
+    }
+    public void setFechaEstimadaFin(LocalDate fecha) {
+          this.fechaEstimadaFin = fecha;
+    }
     
 
 
 }
+
 
 
 
