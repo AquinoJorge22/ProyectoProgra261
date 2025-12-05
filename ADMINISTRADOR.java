@@ -1,5 +1,3 @@
-package proyecto1; // elimina o ajusta si no usas paquete
-
 import javax.swing.*;
 import java.awt.*;
 import java.time.LocalDate;
@@ -13,7 +11,7 @@ import java.time.LocalDate;
  * y ejecutar las operaciones principales (listar tareas, filtrar, crear,
  * actualizar y eliminar).
  * </p>
- *
+ */
 public class ADMINISTRADOR extends USUARIO {
 
     /* =========================
@@ -498,8 +496,3 @@ public class ADMINISTRADOR extends USUARIO {
         lanzarInterfazAdmin();
     }
 }
-
-
-
-
-
