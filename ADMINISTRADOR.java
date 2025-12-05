@@ -1,3 +1,9 @@
+/**
+* @author Aquino Sumuano Jorge Carlos
+ * @author Blancas Mejía Laura Mariana
+ * @author Campos Sierra Diane Yriatzi
+ * @author Eugenio López Maritza Marlem 
+*/
 import javax.swing.*;
 import java.awt.*;
 import java.time.LocalDate;
