@@ -102,7 +102,7 @@ public class DESARROLLADOR extends USUARIO {
                         TAREAS n = ADMINISTRADOR.listaTareas[i];
                         if (n != null && n.getUsuario() != null &&
                             n.getUsuario().getID().equals(this.getID()) &&
-                            n.getEstado().equalsIgnoreCase("en curso")) {
+                            n.getEstado().equalsIgnoreCase("encurso")) {
     
                             area.append("TAREA:\n" + n + "\n");
                             existenciaEnCurso = true;
@@ -179,7 +179,7 @@ public class DESARROLLADOR extends USUARIO {
                 JOptionPane.showMessageDialog(null, "ERROR \n NO PUEDES PASAR DIRECTAMENTE DE PENDIENTE A COMPLETADA. PRIMERO DEBE ESTAR EN CURSO");
             } else {
                 if (nuevoEstado.equalsIgnoreCase("EN CURSO")) {
-                    n.setEstado("enCurso");
+                    n.setEstado("encurso");
                 }else if (nuevoEstado.equalsIgnoreCase("COMPLETADA")) {
                     n.setEstado("completada");
                 }
@@ -228,4 +228,5 @@ public class DESARROLLADOR extends USUARIO {
     }
 }   
 }
+
 
