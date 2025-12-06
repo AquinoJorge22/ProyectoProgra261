@@ -9,10 +9,6 @@
  * - DESARROLLADOR: puede crear, actualizar, filtrar y consultar tareas.
  * - INVITADO: solo puede consultar y filtrar tareas.
  * 
- * 
- * 
- * 
- * 
  * @author Aquino Sumuano Jorge Carlos
  * @author Blancas Mejía Laura Mariana
  * @author Campos Sierra Diane Yriatzi
@@ -441,6 +437,7 @@ public class LISTADETAREAS {
         }
     }
 }
+
 
 
 
