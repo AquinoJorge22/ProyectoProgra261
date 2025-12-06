@@ -1,11 +1,17 @@
 /**
- * Este programa de la clase DESARROLLADOR, heredada de la clase USUARIO, sirve para 
- * realizar acciones como registrar tareas, sobre las tareas del sistema que le corresponden.
-* @author Aquino Sumuano Jorge Carlos
+ * Clase que representa a un DESARROLLADOR en el sistema, heredada de USUARIO.
+ * 
+ * Permite al desarrollador registrar, visualizar, filtrar y actualizar sus propias tareas. 
+ * No puede eliminar tareas de otros usuarios ni modificar tareas completadas.
+ * 
+ * Hacemos nuevamente uso de JOptionPane y JScrollPane para mostrar la información de manera
+ * amigable, con ventanas emergentes.
+ * 
+ * @author Aquino Sumuano Jorge Carlos
  * @author Blancas Mejía Laura Mariana
  * @author Campos Sierra Diane Yriatzi
  * @author Eugenio López Maritza Marlem 
- * @version 1.0
+ * @version 1.0 Noviembre 2025
  * @see DESARROLLADOR
  */
 import javax.swing.JOptionPane;
@@ -79,7 +85,7 @@ public class DESARROLLADOR extends USUARIO {
             JTextArea area = new JTextArea("LISTA DE TUS TAREAS\n\n", 10, 40);
     
             switch (estadoF.toUpperCase()) {
-                case "A":
+                case "A": //Tareas pendientes
                     area.append("PENDIENTES:\n");
                     for (int i = 0; i < ADMINISTRADOR.contadorTareas; i++) {
                         TAREAS n = ADMINISTRADOR.listaTareas[i];
@@ -96,7 +102,7 @@ public class DESARROLLADOR extends USUARIO {
                     }
                     break;
     
-                case "B":
+                case "B": //Tareas en curso
                     area.append("EN CURSO:\n");
                     for (int i = 0; i < ADMINISTRADOR.contadorTareas; i++) {
                         TAREAS n = ADMINISTRADOR.listaTareas[i];
@@ -113,7 +119,7 @@ public class DESARROLLADOR extends USUARIO {
                     }
                     break;
     
-                case "C":
+                case "C": //Tareas compeltadas
                     area.append("COMPLETADAS:\n");
                     for (int i = 0; i < ADMINISTRADOR.contadorTareas; i++) {
                         TAREAS n = ADMINISTRADOR.listaTareas[i];
@@ -141,7 +147,9 @@ public class DESARROLLADOR extends USUARIO {
     }
 
     /**
-     * El desarrollador permite la actualizacion de SUS PROPIAS tareas por  estado, descripción, fechas estimadas y usuario asignado
+     * Se le permite al desarrollador actualizar SUS PROPIAS tareas.
+     * Solo puede actuaizar estado, descripción, fechas estimadas y usuario asignado
+     * Si la tarea ha sido completada esta no podra ser modificada
      */
 
     public void actualizarTareasDesa() {

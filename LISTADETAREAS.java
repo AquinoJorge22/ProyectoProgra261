@@ -1,8 +1,18 @@
 /**
- * Programa que permite al usuario realizar acciones sobre tareas y/o usuarios,
- * dependiendo de su tipo de usuario. Básicamente: entras, te identificas,
+ * Programa que permite al usuario realizar acciones sobre tareas y/o usuarios, dependiendo de su tipo de usuario. 
+ * El flujo principal consiste en : Loing - identificacion - menú según rol
+ * - accion soobre tareas/usuario. 
+ * Básicamente: entras, te identificas,
  * y si sí eres quien dices ser, pues ya puedes hacer lo tuyo.
- *  
+ *  * Roles:
+ * - ADMINISTRADOR: puede crear, actualizar, eliminar y filtrar tareas, así como agregar usuarios.
+ * - DESARROLLADOR: puede crear, actualizar, filtrar y consultar tareas.
+ * - INVITADO: solo puede consultar y filtrar tareas.
+ * 
+ * 
+ * 
+ * 
+ * 
  * @author Aquino Sumuano Jorge Carlos
  * @author Blancas Mejía Laura Mariana
  * @author Campos Sierra Diane Yriatzi
@@ -25,7 +35,7 @@ public class LISTADETAREAS {
 
     public static void main(String[] LISTADETAREAS) {
 
-        // Vars iniciales de registro/login
+        // Vars iniciales de registro
         String NicknameUsuario = "";
         String ContrasenaUsuario = "";
         String menuAdministrador, menuDesarrollador, menuInvitado;
@@ -33,15 +43,15 @@ public class LISTADETAREAS {
         String opc = "";
         String rep = "";
 
-        // Máximos del sistema (se dejan igual, pero se comenta qué onda)
+       
         final int MAX_USUARIOS = 1000;   // Límite de usuarios que se pueden guardar
         final int MAX_TAREAS = 1000000;  // Límite de tareas disponibles
 
-        // Arreglos principales del sistema
-        USUARIO usuarios[] = new USUARIO[MAX_USUARIOS];
-        TAREAS tareas[] = new TAREAS[MAX_TAREAS];
+        
+        USUARIO usuarios[] = new USUARIO[MAX_USUARIOS]; //Arreglo principal de usuarios
+        TAREAS tareas[] = new TAREAS[MAX_TAREAS]; //Arreglo principal de tareas
 
-        // Se cargan usuarios base del sistema (como preset)
+        // Se cargan usuarios base del sistema 
         usuarios[0] = new ADMINISTRADOR("10", "Araceli", "Mercado", "araceli@gmail.com", "1234", "Administrador");
         usuarios[1] = new DESARROLLADOR("11", "Diego", "Alberto", "diego@gmail.com", "5678", "Desarrollador");
         usuarios[2] = new INVITADO("12", "Diana", "Rojas", "diana@gmail.com", "9876", "Invitado");
@@ -53,14 +63,14 @@ public class LISTADETAREAS {
 
             if ("1".equals(opc)) {
 
-                // *** Proceso de login ***
-                NicknameUsuario = solicitarInput("Ingresa tu nickname o correo ");
+                // ___Proceso de login___ 
+                NicknameUsuario = solicitarInput("Ingresa tu nickname o correo "); 
                 ContrasenaUsuario = solicitarInput("Ingresa tu contraseña");
 
                 // Se busca al usuario en el arreglo general
                 for (int i = 0; i < MAX_USUARIOS; i++) {
 
-                    // Revisa coincidencia por nickname o correo, más contraseña
+                    //Verificación por nickname o correo, más contraseña
                     if (usuarios[i] != null &&
                         (NicknameUsuario.equals(usuarios[i].nickname) && ContrasenaUsuario.equals(usuarios[i].contrasena)
                         || NicknameUsuario.equals(usuarios[i].correo) && ContrasenaUsuario.equals(usuarios[i].contrasena))) {
@@ -83,6 +93,7 @@ public class LISTADETAREAS {
 
                                     case "1": // Agregar usuario nuevo
                                         do {
+                                            // Solicitamos los datos al usuario
                                             String nombreusuario1 = solicitarInput("Nombre del nuevo usuario ");
                                             String nickname1 = solicitarInput("Nickname del nuevo usuario ");
                                             String correo1 = solicitarInput("Correo electrónico del nuevo usuario ");
@@ -93,7 +104,7 @@ public class LISTADETAREAS {
                                             String tipoUsuario1;
                                             USUARIO u1 = null;
 
-                                            // Se elige qué tipo de usuario se creará
+                                            // Validaos que le tipo de usuario sea corecto
                                             tipoUsuario1 = solicitarInput(
                                                     "Tipo de usuario\n 1.ADMINISTRADOR\n 2.DESARROLLADOR\n 3.INVITADO ");
 
@@ -103,7 +114,7 @@ public class LISTADETAREAS {
                                                 break;
                                             }
 
-                                            // Se genera un ID aleatorio que no se repita
+                                            // Generación del ID alatorio, sin repeticion
                                             do {
                                                 IDcorrecto = false;
                                                 Random aleatorio = new Random();
@@ -118,7 +129,7 @@ public class LISTADETAREAS {
                                                 }
                                             } while (IDcorrecto);
 
-                                            // Se crea el usuario según su tipo
+                                            // Se crea el usuario segun el rol asignado y se agrega al arreglo de usuario
                                             switch (tipoUsuario1) {
                                                 case "1":
                                                     u1 = new ADMINISTRADOR(id1, nombreusuario1, nickname1, correo1, contrasena1,
@@ -141,7 +152,7 @@ public class LISTADETAREAS {
                                         } while ("S".equalsIgnoreCase(rep));
                                         break;
 
-                                    case "2": // Crear tarea
+                                    case "2": // Creacion de tarea
                                         boolean iDRep;
                                         USUARIO u3 = null;
                                         String id2, fechaEI, fechaEF, descripcion, idUsuarioTarea;
@@ -150,6 +161,7 @@ public class LISTADETAREAS {
                                         String estado = "pendiente";
 
                                         do {
+                                            // Solicitamos la descripción de esta y el usuario al que se le asignara
                                             descripcion = solicitarInput("Ingresa la descripción de la tarea a asignar");
                                             idUsuarioTarea = solicitarInput("Ingresa ID del usuario al que se le asignará la tarea");
 
@@ -161,7 +173,7 @@ public class LISTADETAREAS {
                                                 }
                                             }
 
-                                            // Fechas estimadas
+                                            // Validacion de fechas estimadas
                                             try {
                                                 fechaEI = solicitarInput("Fecha estimada de inicio (aaaa-mm-dd):");
                                                 fechaEF = solicitarInput("Fecha estimada de finalización (aaaa-mm-dd):");
@@ -178,7 +190,7 @@ public class LISTADETAREAS {
                                             fechaInicio = LocalDate.of(2000, 01, 01);
                                             fechaFinal = LocalDate.of(2000, 01, 01);
 
-                                            // Crear ID de la tarea sin repetir
+                                            // Crear ID, sin repetcion
                                             do {
                                                 iDRep = false;
                                                 Random aleatorio = new Random();
@@ -193,11 +205,11 @@ public class LISTADETAREAS {
                                                 }
                                             } while (iDRep);
 
-                                            // Se arma la tarea
+                                            // Se crea la tarea
                                             TAREAS t2 = new TAREAS(id2, descripcion, u3, fechaEstimadaIn,
                                                     fechaEstimadaFin);
 
-                                            // Y el admin la agrega a la lista global
+                                            // El admin la agrega a la lista global
                                             u2.crearTareaAdmin(t2);
 
                                             rep = solicitarInput("Deseas crear otra tarea? (S/N)");
@@ -205,7 +217,7 @@ public class LISTADETAREAS {
 
                                         break;
 
-                                    case "3": // Ver todas las tareas
+                                    case "3": // Se muestran todas las tareas
                                         u2.desplegarTareasAdmin();
                                         break;
 
@@ -255,7 +267,7 @@ public class LISTADETAREAS {
 
                                         break;
 
-                                    case "5": // Actualizar tarea
+                                    case "5": // Actualizacion de tarea
                                         do {
                                             String idTareas = solicitarInput("Ingresa el ID de la tarea que desea actualizar");
                                             u2.actualizarTareaPorId(idTareas);
@@ -281,6 +293,10 @@ public class LISTADETAREAS {
                             // -------------------------
                             //      DESARROLLADOR
                             // -------------------------
+
+                            /*  El desarrollador puede crear tareas para sí mismo o actualizar las existentes
+                                pero no puede gestionar usuarios ni eliminar tareas de otros*/
+
                             } else if (usuarios[i].tipoUsuario == "Desarrollador") {
 
                                 DESARROLLADOR desarrollador = (DESARROLLADOR) usuarios[i];
@@ -365,6 +381,7 @@ public class LISTADETAREAS {
                             // -------------------------
                             //         INVITADO
                             // -------------------------
+                            //// Solo puede consultar y filtrar tareas, sin modificar nada
                             } else if (usuarios[i].tipoUsuario == "Invitado") {
 
                                 INVITADO invitado = (INVITADO) usuarios[i];

@@ -1,11 +1,19 @@
 /**
- *Programa que hace uso de la clase INVITADO, heredada de la clase USUARIO, para 
- * visualizar las tareas que le corresponden.
-* @author Aquino Sumuano Jorge Carlos
+ *Programa que hace uso de la clase INVITADO, heredada de la clase USUARIO.
+ *Los invitados solo pueden visualizar y filtrar sus propias tareas, 
+ *sin poder modificarlas ni crear nuevas.
+ * Se hace uso de JOptionPane en este caso nos ayuda para: pedir al usuario que ingrese información 
+ * (como el estado de las tareas o el ID) y mostrar resultados o mensajes informativos (como la lista de tareas o alertas de error).
+ * y JScrollPane en este caso permite que la lista de tareas se vea completa aunque haya muchas, sin que la ventana se corte.
+ * Hacer la visualización más amigable y navegable para el usuario
+ * de manera amigable.
+ * 
+ * 
+ * @author Aquino Sumuano Jorge Carlos
  * @author Blancas Mejía Laura Mariana
  * @author Campos Sierra Diane Yriatzi
  * @author Eugenio López Maritza Marlem 
- * @version 1.0
+ * @version 1.0 Noviembre 2025
  * @see INVITADO
  */
 import javax.swing.JOptionPane;
@@ -27,7 +35,7 @@ public class INVITADO extends USUARIO{
             boolean tienesTareas = false;
     
             
-    
+            //Se recorren todas las tareas existentes en el sistema
             for (int i = 0; i < ADMINISTRADOR.contadorTareas; i++) {
                 TAREAS n = ADMINISTRADOR.listaTareas[i];
                 if (n != null && n.getUsuario().getID().equals(this.getID())) {
@@ -37,7 +45,7 @@ public class INVITADO extends USUARIO{
                 JScrollPane scroll = new JScrollPane(area);
                 JOptionPane.showMessageDialog(null, scroll, "TUS TAREAS : ", JOptionPane.INFORMATION_MESSAGE);
             }
-    
+            // Solo se muestran las tareas que pertenecena este invitado
             if (!tienesTareas) {
                 JOptionPane.showMessageDialog(null, "No se encontraron tareas en el sistema");
             }
@@ -114,7 +122,7 @@ public class INVITADO extends USUARIO{
                         area.setText("Opción no válida.");
                         break;
                 }
-        
+                //Se meustra la lista final en un JScrollPane
                 JScrollPane scroll = new JScrollPane(area);
                 JOptionPane.showMessageDialog(null, scroll, "INFORMACION", JOptionPane.INFORMATION_MESSAGE);
             }

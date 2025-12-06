@@ -1,70 +1,73 @@
 /**
-* @author Aquino Sumuano Jorge Carlos
+ * Representa al usuario con permisos administrativos dentro del sistema.
+ * Esto consta de:
+ * - Crear, actualizar y eliminar usuarios y tareas
+ * - Filtrar y visualizar tareas por estado o por usuario
+ * - Ejecutar estas operaciones mediante una interfaz gráfica mínima
+ *   basada en ventanas Swing y botones.
+ * Provee una interfaz gráfica mínima (ventana con botones) para visualizar
+ * y ejecutar las operaciones principales (listar tareas, filtrar, crear,
+ * actualizar y eliminar).
+ * 
+ * @author Aquino Sumuano Jorge Carlos
  * @author Blancas Mejía Laura Mariana
  * @author Campos Sierra Diane Yriatzi
  * @author Eugenio López Maritza Marlem 
+ * @version 1.0 Noviembre 2025
+ * @see ADMINISTRADOR
 */
 import javax.swing.*;
 import java.awt.*;
 import java.time.LocalDate;
+ 
 
-/**
- * Clase ADMINISTRADOR
- *
- * <p>
- * Implementa la lógica administrativa sobre usuarios y tareas y además
- * provee una interfaz gráfica mínima (ventana con botones) para visualizar
- * y ejecutar las operaciones principales (listar tareas, filtrar, crear,
- * actualizar y eliminar).
- * </p>
- */
 public class ADMINISTRADOR extends USUARIO {
 
-    /* =========================
-       CONSTANTES Y ESTADO GLOBAL (NOMBRES EN ESPAÑOL)
-       ========================= */
+    // =========================
+    // CONSTANTES Y ESTADO GLOBAL 
+    // ========================= 
 
-    /** Máximo de usuarios permitidos en el arreglo interno. */
+    // Máximo de usuarios permitidos en el arreglo interno. 
     public static final int MAX_USUARIOS = 1000;
 
-    /** Arreglo que contiene los usuarios del sistema. */
+    // Arreglo que contiene los usuarios del sistema. 
     public static USUARIO[] listaUsuarios = new USUARIO[MAX_USUARIOS];
 
-    /** Número actual de usuarios registrados en {@link #listaUsuarios}. */
+    // Número actual de usuarios. 
     public static int contadorUsuarios = 0;
 
-    /** Máximo de tareas permitidas en el arreglo interno. */
+    // Máximo de tareas permitidas en el arreglo interno. 
     public static final int MAX_TAREAS = 1_000_000;
 
-    /** Arreglo que contiene las tareas del sistema. */
+    //Arreglo que contiene las tareas del sistema. 
     public static TAREAS[] listaTareas = new TAREAS[MAX_TAREAS];
     
     public static int contadorTareas = 0;
 
-    /* ======
-       BLOQUE DE INICIALIZACIÓN ESTÁTICO
-       ====== */
+    // =====================================
+    //   BLOQUE DE INICIALIZACIÓN ESTÁTICO
+    // ==================================== 
 
     static {
-        // Usuarios de ejemplo
+        // Creación de usuarios de ejemplo para pruebas iniciales
         listaUsuarios[0] = new ADMINISTRADOR("10", "Araceli", "Mercado", "araceli@gmail.com", "1234", "Administrador");
         listaUsuarios[1] = new DESARROLLADOR("11", "Laura", "Blancas", "laura@gmail.com", "2102", "Desarrollador");
         listaUsuarios[2] = new INVITADO("12", "Mariana", "Mejia", "mariana@gmail.com", "5615", "Invitado");
         contadorUsuarios = 3;
 
-        // Tarea de ejemplo (se asume constructor de TAREAS como en tu versión original)
+        // Tarea de ejemplo 
         LocalDate fechaEstimadaIn1 = LocalDate.now().plus(3);
         LocalDate fechaEstimadaFin1 = LocalDate.now().plusDays(15);
         listaTareas[0] = new TAREAS("12", "La tarea de progra es sobre usuarios", listaUsuarios[2], 
             fechaEstimadaIn1, fechaEstimadaFin1);
     }
 
-    /* ======================
-       CONSTRUCTOR
-       ====================== */
+    
+     //  -----------------CONSTRUCTOR-------------------
+       
 
     /**
-     * Constructor del administrador (delegado a {@code USUARIO}).
+     * Constructor del administrador.
      *
      * @param ID            identificador del usuario
      * @param nombreUsuario nombre 
@@ -77,12 +80,11 @@ public class ADMINISTRADOR extends USUARIO {
         super(ID, nombreUsuario, nickname, correo, contrasena, tipoUsuario);
     }
 
-    /* ===========================
-       MÉTODOS PÚBLICOS (LÓGICA) - NOMBRES EN ESPAÑOL
-       =========================== */
+   
+    // ------------------MÉTODOS--------------------- 
 
     /**
-     * Agrega un nuevo usuario a {@link #listaUsuarios} si no existe duplicado.
+     * Agrega un nuevo usuario al sistema si no existe duplicado.
      *
      * @param nuevoUsuario usuario a agregar
      */
@@ -103,8 +105,7 @@ public class ADMINISTRADOR extends USUARIO {
     }
 
     /**
-     * Crea una nueva tarea y la añade a {@link #listaTareas} si no existe duplicada.
-     *
+     * Creacion de tarea nueva en el sistema
      * @param nuevaTarea tarea a crear
      */
     public static void crearTareaAdmin(TAREAS nuevaTarea) {
@@ -338,25 +339,24 @@ public class ADMINISTRADOR extends USUARIO {
     }
 
     /**
-     * Función auxiliar que pide una cadena al usuario con {@link JOptionPane#showInputDialog}.
      *
-     * @param mensaje texto a mostrar en la entrada
-     * @return cadena ingresada por el usuario, o {@code null} si canceló
+     * @param mensaje texto que se mostrara en la entrada
+     * @return cadena ingresada por el usuario
      */
     public static String solicitarEntrada(String mensaje) {
         return JOptionPane.showInputDialog(mensaje);
     }
 
-    /* ===========================
-       INTERFAZ GRÁFICA (VENTANA) - NOMBRES EN ESPAÑOL
-       =========================== */
+    // =======================
+    //    INTERFAZ GRÁFICA 
+    // =======================  
 
     /**
      * Lanza una ventana Swing con botones que permiten invocar
      * las operaciones administrativas principales para visualizar la interfaz.
      *
      * Esta ventana NO reemplaza la lógica interna: únicamente ofrece
-     * botones que invocan los métodos (los diálogos concretos se siguen mostrando con {@link JOptionPane}).
+     * botones que invocan los métodos.
      */
     public static void lanzarInterfazAdmin() {
         EventQueue.invokeLater(() -> {
@@ -482,21 +482,9 @@ public class ADMINISTRADOR extends USUARIO {
         });
     }
 
-    /* ===========================
-       MÉTODO main DE PRUEBA (OPCIONAL)
-       =========================== */
-
-    /**
-     * Método main de prueba para lanzar la interfaz gráfica del administrador.
-     * Puedes comentar o eliminar este método si no deseas que esta clase tenga
-     * un punto de entrada propio.
-     *
-     * @param args argumentos de línea de comando (no usados)
-     */
-    public static void main(String[] args) {
-        lanzarInterfazAdmin();
-    }
+    
 }
+
 
 
 

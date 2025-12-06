@@ -4,7 +4,7 @@
  * @author Blancas Mejía Laura Mariana
  * @author Campos Sierra Diane Yriatzi
  * @author Eugenio López Maritza Marlem 
- * @version 1.0 
+ * @version 1.0 Noviembre 2025
  * @see TAREAS
  */
 
@@ -175,7 +175,7 @@ public class TAREAS {
 
     // ------SETTERS -------
     public void setUsuario (USUARIO usuario){
-        this.usuario = usuario;
+        this.usuario = asignado;
     }
     public void setDescripcion(String descripcion){
         this.descripcion = descripcion;
