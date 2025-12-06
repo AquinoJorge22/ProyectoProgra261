@@ -1,4 +1,10 @@
 /**
+Esta clase nos representa una trea dentro del sistema de gestión
+Cada tarea se le asigno un identifcador único, descriptivo, usuario asigno y
+fechas estimadas y reales de inicio y fin.
+El flujo de estados de la tarea es: pendiente - enCurso - completada 
+*/
+/**
  * Programa que representa la estructura que cumplen las tareas del sistema.
 * @author Aquino Sumuano Jorge Carlos
  * @author Blancas Mejía Laura Mariana
@@ -7,12 +13,6 @@
  * @version 1.0 Noviembre 2025
  * @see TAREAS
  */
-
-/**
-Esta clase nos representa una trea dentro del sistema de gestión
-Cada tarea se le asigno un identifcador único, descriptivo, usuario asigno y
-fechas estimadas y reales de inicio y fin.
-El flujo de estados de la tarea es: pendiente - enCurso - completada */
 
 import java.time.LocalDate;
 //La teare siempre inicia en 'pendiente' hasta que se active su flujo
@@ -190,6 +190,7 @@ public class TAREAS {
 
 
 }
+
 
 
 
