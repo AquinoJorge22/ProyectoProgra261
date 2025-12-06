@@ -2,7 +2,7 @@
  *Programa que hace uso de la clase INVITADO, heredada de la clase USUARIO.
  *Los invitados solo pueden visualizar y filtrar sus propias tareas, 
  *sin poder modificarlas ni crear nuevas.
- * Se hace uso de JOptionPane en este caso nos ayuda para: pedir al usuario que ingrese información 
+ * Se hace uso de JOptionPane que en este caso nos ayuda para; pedir al usuario que ingrese información 
  * (como el estado de las tareas o el ID) y mostrar resultados o mensajes informativos (como la lista de tareas o alertas de error).
  * y JScrollPane en este caso permite que la lista de tareas se vea completa aunque haya muchas, sin que la ventana se corte.
  * Hacer la visualización más amigable y navegable para el usuario
@@ -132,5 +132,6 @@ public class INVITADO extends USUARIO{
 
 
 }
+
 
 
