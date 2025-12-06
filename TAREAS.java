@@ -7,6 +7,13 @@
  * @version 1.0 
  * @see TAREAS
  */
+
+/**
+Esta clase nos representa una trea dentro del sistema de gestión
+Cada tarea se le asigno un identifcador único, descriptivo, usuario asigno y
+fechas estimadas y reales de inicio y fin.
+El flujo de estados de la tarea es: pendiente - enCurso - completada */
+
 import java.time.LocalDate;
 //La teare siempre inicia en 'pendiente' hasta que se active su flujo
 //Utilizamos LocalDate para obtener mejor flexiblidad al gestionar las fechas
@@ -133,7 +140,7 @@ public class TAREAS {
            // Se registra la fecha real de finalizacion justo cuando la tarea se completa   
                 this.fechaFin = LocalDate.now();
                 break;
-
+//Aqui es donde se lleva el registro automatico de las fechas reales.
             default:
                 throw new IllegalArgumentException("Estado no reconocido: " + nuevoEstado);
 
@@ -183,6 +190,7 @@ public class TAREAS {
 
 
 }
+
 
 
 
