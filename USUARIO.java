@@ -4,7 +4,7 @@
  * @author Blancas Mejía Laura Mariana
  * @author Campos Sierra Diane Yriatzi
  * @author Eugenio López Maritza Marlem 
- * @version 1.0
+ * @version 1.0 Noviembre 2025
  * @see USUARIO
  */
 public class USUARIO {
@@ -33,7 +33,7 @@ para asi evitar accesos directos que no se deseen */
     public USUARIO(String ID, String nombreUsuario, String nickname, String correo, String contrasena, String tipoUsuario){
         this.ID= ID;
         this.nombreUsuario=nombreUsuario;
-        this.nickname= nickname;
+        this.nickname= nickname; 
         this.correo= correo;
         this.contrasena= contrasena;
         this.tipoUsuario=tipoUsuario;
@@ -212,6 +212,7 @@ para asi evitar accesos directos que no se deseen */
     }
 
 }
+
 
 
 
