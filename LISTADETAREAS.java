@@ -1,8 +1,8 @@
 
 /**
- * Programa que permite al usuario realizar acciones sobre tareas y/o usuarios,
- * dependiendo de su tipo de usuario. Básicamente: entras, te identificas,
- * y si sí eres quien dices ser, pues ya puedes hacer lo tuyo.
+ * Programa que permite al usuario realizar acciones sobre tareas y/o usuarios, dependiendo de su tipo de usuario. B
+ * Permite a los usuarios iniciar sesión y acceder a las funcionalidades
+ * disponibles según su tipo de usuario: Administrador, Desarrollador o Invitado.
  *  
  * @author Aquino Sumuano Jorge Carlos
  * @author Blancas Mejía Laura Mariana
@@ -19,20 +19,20 @@ public class LISTADETAREAS {
 
 
 
-    // 🔴 Atributos de clase
+    // ------- ATRIBUTOS -----
     public static final int MAX_USUARIOS = 1000;
     public static final int MAX_TAREAS = 1000000;
     public static USUARIO[] listaUsuarios = new USUARIO[MAX_USUARIOS];
     public static TAREAS[] listaTareas = new TAREAS[MAX_TAREAS];
 
-    // 🔴 Función auxiliar para pedir datos al usuario
+    // Función auxiliar para pedir datos al usuario
     public static String solicitarInput(String mensaje) {
         return JOptionPane.showInputDialog(mensaje);
     }
 
-    // 🔴 Inicializa usuarios base
+    // Inicializa usuarios base
 
-    // 🔴 Método que inicia el login y permite regresar al menú principal
+    // Método que no permite inicia el login y permite regresar al menú principal
     public static void mostrarLogin() {
 
             String opc = solicitarInput(
@@ -57,19 +57,19 @@ public class LISTADETAREAS {
 
                         encontrado = true;
 
-                        // 🔴 ADMINISTRADOR
+                        // ADMINISTRADOR
                         if ("Administrador".equals(listaUsuarios[i].tipoUsuario)) {
                             ADMINISTRADOR admin = (ADMINISTRADOR) listaUsuarios[i];
                             admin.lanzarInterfazAdmin(); // interfaz gráfica admin
                         }
 
-                        // 🔴 DESARROLLADOR
+                        // DESARROLLADOR
                         else if ("Desarrollador".equals(listaUsuarios[i].tipoUsuario)) {
                             DESARROLLADOR des = (DESARROLLADOR) listaUsuarios[i];
                             des.lanzarInterfazDesarrollador(); // interfaz gráfica desarrollador
                         }
 
-                        // 🔴 INVITADO
+                        // INVITADO
                         else if ("Invitado".equals(listaUsuarios[i].tipoUsuario)) {
                             INVITADO inv = (INVITADO) listaUsuarios[i];
                             inv.lanzarInterfazInvitado(); // interfaz gráfica invitado
@@ -111,6 +111,7 @@ public class LISTADETAREAS {
     archivo.guardarTareas(listaTareas);
 }
 }
+
 
 
 
